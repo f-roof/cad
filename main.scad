@@ -1,4 +1,4 @@
-// F-Roof
+// F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
@@ -34,9 +34,9 @@ module roof_wood_house_support()
 module roof_solar_panel_side()
 {
     for (i = [0:5])
-        translate([distance_between_capriori * i, 0, 0]) 
+        translate([distance_between_trusses * i, 0, 0]) 
         rotate([-90, 0, 0])
-            angle_beam(caprior_length);
+            angle_beam(truss_top_chord_length);
             
      // T profiles
         for (i = [0 : 3])
@@ -56,7 +56,7 @@ module roof_solar_panel_side()
         for (k = [0 : 2])
         for (i = [0 : 3]){
             //translate([0, 0,  -10])
-            translate([k * distance_between_capriori + caprior_side_small / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
+            translate([k * distance_between_trusses + truss_side_small / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
             4.1]) mirror([0,0,1]){
                 translate([0, -10, 0])
                     M8_sunken (100);
@@ -69,18 +69,18 @@ module roof_solar_panel_side()
 module roof_tiles_side()
 {
     for (i = [0 : 5]){
-        translate([distance_between_capriori * i, 0, 0]) 
-            translate ([caprior_side_small, 0, 0])   
+        translate([distance_between_trusses * i, 0, 0]) 
+            translate ([truss_side_small, 0, 0])   
                 rotate([0, 0, 180]) 
-                    angle_beam(caprior_length);
+                    angle_beam(truss_top_chord_length);
                 
         translate([i * distance_between_metal_tiles, 31, start_point_metal_tile])             
             rotate([90, 0, 0])
                 roof_tile(4500);
     }
-    // latze de prins tabla pe ele
+    // wood bars to put the metal roof tiles on it
     for (i = [0 : 11]){
-        translate([0, 0, i * distance_between_roof_late + start_point_metal_tile])
+        translate([0, 0, i * distance_between_roof_metal_tiles_support + start_point_metal_tile])
             color("yellow") cube([6000, 30, 40]);
     }
 }
@@ -97,11 +97,11 @@ module roof()
     
     translate([0, 0, 0] + [0, 25, 40]){
         rotate([0, 90, 0]) 
-        rectangular_tube(6000, 60, caprior_side_small);
+        rectangular_tube(6000, 60, truss_side_small);
     }    
     translate([0, base_house_width - 60, 0] + [0, -25, 40]){
         rotate([0, 90, 0]) 
-        rectangular_tube(6000, 60, caprior_side_small);
+        rectangular_tube(6000, 60, truss_side_small);
     }    
     //now the real roof
     translate([0, 0, base_bar_side_long + 40]){
@@ -115,7 +115,7 @@ module roof()
                 roof_tiles_side();
 
         for (i = [0 : 5]){
-            translate([distance_between_capriori * i, -130 + 60 + 25, 0]){
+            translate([distance_between_trusses * i, -130 + 60 + 25, 0]){
                 truss();
             for (k=[0:27]){
                 translate([0, 
@@ -131,7 +131,7 @@ module roof()
        
             // jgheaburi
         for (i = [0 : 4]){
-            translate([distance_between_capriori * i, 0, 0]){
+            translate([distance_between_trusses * i, 0, 0]){
             for (k=[0:27]){
                 translate([0, 
                 cos(angle) * 155 * k, 
