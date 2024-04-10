@@ -36,7 +36,7 @@ module roof_solar_panel_side()
     for (i = [0:5])
         translate([distance_between_trusses * i, 0, 0]) 
         rotate([-90, 0, 0])
-            angle_beam(truss_top_chord_length);
+            angle_beam(truss_top_chord_length, angle);
             
      // T profiles
         for (i = [0 : 3])
@@ -72,7 +72,7 @@ module roof_tiles_side()
         translate([distance_between_trusses * i, 0, 0]) 
             translate ([truss_side_small, 0, 0])   
                 rotate([0, 0, 180]) 
-                    angle_beam(truss_top_chord_length);
+                    angle_beam(truss_top_chord_length, angle);
                 
         translate([i * distance_between_metal_tiles, 31, start_point_metal_tile])             
             rotate([90, 0, 0])

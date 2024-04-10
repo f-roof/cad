@@ -3,8 +3,9 @@
 // Author: Mihai Oltean; https://tcreate.org
 //------------------------------------------------------------------------------------
 include <params.scad>
+include <basic components/params_gutter.scad>
 use <basic components/metal_profiles.scad>
-//------------------------------------------------------------------------------------
+//-------------------------------------------------------------
 module ridge(length, radius) // rounded at the top
 {   
     difference(){
@@ -14,18 +15,18 @@ module ridge(length, radius) // rounded at the top
     }
 }
 //------------------------------------------------------------------------------------
-module angle_beam(length)
+module angle_beam(length, rotation_angle)
 {
     difference(){
        // tube(length);
        rectangular_tube(length, truss_side_long, truss_side_small);
             // taietura sus
         translate([0, 0, truss_top_chord_length] - [1, 0, 0]) 
-            rotate([-(angle), 0, 0]) 
+            rotate([-(rotation_angle), 0, 0]) 
             cube([truss_side_small, 2 * truss_side_long, 2 * truss_side_small] + [2, 0, 0]);
             // taietura jos la unghi
         translate( - [1, 0, 0]) 
-            rotate([-(angle), 0, 0]) 
+            rotate([-(rotation_angle), 0, 0]) 
             cube([truss_side_small, 3 * truss_side_long, 4 * truss_side_small] + [2, 0, 0]);
     }
 }
@@ -59,14 +60,14 @@ module truss()
 // one beam
      translate ([0, 0, 0]) 
         rotate([-(90-angle), 0, 0]) 
-            angle_beam(truss_top_chord_length);
+            angle_beam(truss_top_chord_length, angle);
     
 // other beam            
     translate ([truss_side_small, base_bar_length -2 * offset, 0])   
         translate ([0, 0, 0]) 
             rotate([90-angle, 0, 0]) 
                 rotate([0, 0, 180]) 
-                angle_beam(truss_top_chord_length)
+                angle_beam(truss_top_chord_length, angle)
                 ;
             
 // base beam            
@@ -97,18 +98,18 @@ module cedar(length, radius)
     }
 }
 //---------------------------------------------------------------------------------------
-module lindab_jgheab(length)
+module gutter_Lindab(length)
 {
     difference(){
-        color("maroon") cube([length, jgheab_lindab_top_width, jgheab_lindab_back_height]);
+        color("maroon") cube([length, gutter_lindab_top_width, gutter_lindab_back_height]);
         // front cut
         translate ([0, 0, -5]+[-1, 0, 0])
             rotate([8, 0, 0])
-        cube([length + 2, 12, jgheab_lindab_back_height]);
+        cube([length + 2, 12, gutter_lindab_back_height]);
 // top cut 
-        translate ([0, 0, jgheab_lindab_back_height -10]+[-1, 0, 0])
+        translate ([0, 0, gutter_lindab_back_height -10]+[-1, 0, 0])
             rotate([4.5, 0, 0])
-        cube([length + 2, jgheab_lindab_top_width, 10]);
+        cube([length + 2, gutter_lindab_top_width, 10]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -127,3 +128,5 @@ module stair_step(length)
 }
 //---------------------------------------------------------------------------------------
 truss();
+
+gutter_Lindab(1000);
