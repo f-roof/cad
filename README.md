@@ -1,6 +1,8 @@
 # F-Roof CAD files
 A multi-function single-layer roof
 
+![f-roof-cad](images/f_roof_cad.png)
+
 ## Homepage
 
 [github.com/f-roof](https://github.com/f-roof)
