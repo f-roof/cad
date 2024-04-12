@@ -71,6 +71,7 @@ module roof_standard_tiles_side()
 //---------------------------------------------------------------------------------------
 module roof()
 {
+// house
     translate([0, 0, -house_height-2 * base_beam_side]) 
         house();
 
@@ -113,7 +114,7 @@ module roof()
         }
     }       
        
-            // jgheaburi
+            // gutters
         for (i = [0 : 4]){
             translate([distance_between_trusses * i, 0, 0]){
             for (k=[0:27]){
@@ -121,7 +122,7 @@ module roof()
                 cos(angle) * 155 * k, 
                 sin(angle) * 155 * (k)]){
                     translate([20 + 50, 0, 120 - 17.5])
-                        //lindab_jgheab(1000)
+                        //lindab_gutter(1000)
                     ;
             }
         }
@@ -140,13 +141,8 @@ module roof()
         //    cedar(base_length, cedar_radius);
 }
 //---------------------------------------------------------------------------------------
- //rotate([-(90-angle), 0, 0]) translate ([0, 0,0]) caprior();
- //caprior_2_sides_with_base();
- 
 roof();
 
 //roof_solar_panel_side();
 
 //roof_tiles_side();
-
-//creasta(1000);

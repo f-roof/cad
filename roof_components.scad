@@ -3,18 +3,8 @@
 // Author: Mihai Oltean; https://tcreate.org
 //------------------------------------------------------------------------------------
 include <params.scad>
-include <basic components/params_gutter.scad>
 use <basic components/metal_profiles.scad>
 //-------------------------------------------------------------
-module ridge(length, radius) // rounded at the top
-{   
-    difference(){
-        color("maroon") cylinder (h = length, r = radius);
-        translate([0, 0, -1]) cylinder (h = length +2 , r = radius - 2);
-        translate ([0, -radius, 0]) cube([radius, 2 * radius, length]);
-    }
-}
-//------------------------------------------------------------------------------------
 module angle_beam(length, rotation_angle)
 {
     difference(){
@@ -89,30 +79,6 @@ module truss()
 
 }
 //---------------------------------------------------------------------------------------
-module cedar(length, radius)
-{
-    difference(){
-        color("maroon") cylinder(h = length, r = radius);
-        translate([0, 0, -1]) cylinder(h = length + 2, r = radius - 1);
-        translate([0, -radius, -1]) cube([radius, 2 * radius, length + 2]);
-    }
-}
-//---------------------------------------------------------------------------------------
-module gutter_Lindab(length)
-{
-    difference(){
-        color("maroon") cube([length, gutter_lindab_top_width, gutter_lindab_back_height]);
-        // front cut
-        translate ([0, 0, -5]+[-1, 0, 0])
-            rotate([8, 0, 0])
-        cube([length + 2, 12, gutter_lindab_back_height]);
-// top cut 
-        translate ([0, 0, gutter_lindab_back_height -10]+[-1, 0, 0])
-            rotate([4.5, 0, 0])
-        cube([length + 2, gutter_lindab_top_width, 10]);
-    }
-}
-//---------------------------------------------------------------------------------------
 module stair_step(length)
 {
     difference(){
@@ -128,5 +94,3 @@ module stair_step(length)
 }
 //---------------------------------------------------------------------------------------
 truss();
-
-gutter_Lindab(1000);
