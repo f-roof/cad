@@ -9,27 +9,11 @@ use <basic components/solar_panels.scad>
 use <basic components/metal_profiles.scad>
 use <basic components/screws_nuts_washers.scad>
 use <basic components/metal_tiles.scad>
+
 use <house_no_roof.scad>
 include <basic components/params_solar_panels.scad>
 include <basic components/params_metal_profiles.scad>
 include <params_house.scad>
-//---------------------------------------------------------------------------------------
-module roof_wood_house_support()
-{
-// long side
-    translate ([0, 0, base_beam_side]) 
-        cube([base_length, base_beam_side, base_beam_side]);
-    
-    translate ([0, 0, base_beam_side]) 
-        translate ([0, base_house_width - base_beam_side, 0]) 
-            cube([base_length, base_beam_side, base_beam_side]);
-        
-   // short side     
-    translate ([0, 0, 0]) 
-        cube([base_beam_side, base_house_width, base_beam_side]);
-    translate ([base_length - base_beam_side, 0, 0]) 
-        cube([base_beam_side, base_house_width, base_beam_side]);    
-}
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {
