@@ -50,7 +50,7 @@ module roof_solar_panel_side()
             }        
 }
 //---------------------------------------------------------------------------------------
-module roof_tiles_side()
+module roof_standard_tiles_side()
 {
     for (i = [0 : 5]){
         translate([distance_between_trusses * i, 0, 0]) 
@@ -96,7 +96,7 @@ module roof()
                 ;
         translate([0, base_house_width + 0, 0])
             rotate([90-angle, 0, 0]) 
-                roof_tiles_side();
+                roof_standard_tiles_side();
 
         for (i = [0 : 5]){
             translate([distance_between_trusses * i, -130 + 60 + 25, 0]){
