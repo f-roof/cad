@@ -75,9 +75,10 @@ module roof_standard_tiles_side()
 module roof()
 {  
     // metal frame over existing house frame
+    // just to reinforce the existing base
     translate([0, 0, 0] + [0, 25, 40]){
         rotate([0, 90, 0]) 
-        rectangular_tube(6000, 60, truss_side_small);
+        rectangular_tube(6000, 80, truss_side_small);
     }    
     translate([0, base_house_width - 60, 0] + [0, -25, 40]){
         rotate([0, 90, 0]) 
@@ -116,7 +117,7 @@ module roof()
                 translate([0, 
                 cos(angle_roof) * 155 * k, 
                 sin(angle_roof) * 155 * (k)]){
-                    translate([20 + 50, 0, 120 - 17.5])
+                    translate([20 + 40, 0, 120 - 17.5])
                         gutter_Lindab(1000)
                     ;
             }
