@@ -19,7 +19,7 @@ module stair_step(length, angle)
     }
 }
 //---------------------------------------------------------------------------------------
-module gutter_plants_support()
+module gutter_plants_L_support()
 {
     difference(){
         cube([gutter_support_length, gutter_support_size, gutter_support_size]);
@@ -34,4 +34,4 @@ module gutter_plants_support()
     }
 }
 //---------------------------------------------------------------------------------------
-gutter_plants_support();
+gutter_plants_L_support();
