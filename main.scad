@@ -76,20 +76,6 @@ module roof_standard_tiles_side()
 //---------------------------------------------------------------------------------------
 module roof()
 {  
-    // metal frame over existing house frame
-    // just to reinforce the existing base
-    translate([0, 0, 0] + [0, 25, 40]){
-        rotate([0, 90, 0]) 
-        rectangular_tube(6000, 80, truss_side_small_size);
-    }    
-    // metal frame, other side
-    translate([0, base_house_width - 60, 0] + [0, -25, 40]){
-        rotate([0, 90, 0]) 
-        rectangular_tube(6000, 60, truss_side_small_size);
-    }    
-    //now the real roof
-    translate([0, 0, truss_base_bar_side_long + 40]){
-
         translate([0, -0, 0])
             rotate([angle_roof, 0, 0]) 
                 roof_solar_panel_side()
@@ -98,7 +84,7 @@ module roof()
             rotate([90-angle_roof, 0, 0]) 
                 roof_standard_tiles_side();
 
-        for (i = [0 : 5]){
+        for (i = [0 : 6]){
             translate([distance_between_trusses * i, -130 + 60 + 25, 0]){
                 truss(angle_roof);
             for (k=[0:27]){
@@ -127,10 +113,9 @@ module roof()
         }
     }
 }    
-}
 
 // top ridge
-    translate ([0, base_house_width / 2, 2800])
+    translate ([0, base_house_width / 2, 2700])
        rotate([0, 90, 0])
            ridge(base_length, ridge_radius);
 }
@@ -144,7 +129,21 @@ module house_with_roof()
     // wood frame on the top of the  house
     color("maroon") translate([0, 0, -2 * base_beam_side]) roof_wood_house_support();
 
-    roof();
+        // metal frame over existing house frame
+    // just to reinforce the existing base
+    translate([0, 0, 0] + [0, 25, 40]){
+        rotate([0, 90, 0]) 
+        rectangular_tube(6000, 80, truss_side_small_size);
+    }    
+    // metal frame, other side
+    translate([0, base_house_width - 60, 0] + [0, -25, 40]){
+        rotate([0, 90, 0]) 
+        rectangular_tube(6000, 60, truss_side_small_size);
+    }    
+
+    //now the real roof
+    translate([0, 0, truss_base_bar_side_long + 40])
+        roof();
 }
 //---------------------------------------------------------------------------------------
 house_with_roof();
