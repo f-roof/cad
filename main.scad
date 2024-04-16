@@ -5,6 +5,7 @@
 include <params.scad>
 include <params_house.scad>
 include <params_truss.scad>
+
 //---------------------------------------------------------------------------------------
 use <truss.scad>
 use <house_no_roof.scad>
@@ -17,6 +18,7 @@ use <basic components/metal_tiles.scad>
 
 include <basic components/params_solar_panels.scad>
 include <basic components/params_metal_profiles.scad>
+include <basic components/params_gutter.scad>
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {
@@ -43,7 +45,7 @@ module roof_solar_panel_side()
         for (k = [0 : 2])
         for (i = [0 : 3]){
             //translate([0, 0,  -10])
-            translate([k * distance_between_trusses + truss_side_small / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
+            translate([k * distance_between_trusses + truss_side_small_size / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
             4.1]) mirror([0,0,1]){
                 translate([0, -10, 0])
                     M8_sunken (100);
@@ -57,7 +59,7 @@ module roof_standard_tiles_side()
 {
     for (i = [0 : 5]){
         translate([distance_between_trusses * i, 0, 0]) 
-            translate ([truss_side_small, 0, 0])   
+            translate ([truss_side_small_size, 0, 0])   
                 rotate([0, 0, 180]) 
                     angle_beam(truss_top_chord_length, angle_roof);
                 
@@ -78,11 +80,12 @@ module roof()
     // just to reinforce the existing base
     translate([0, 0, 0] + [0, 25, 40]){
         rotate([0, 90, 0]) 
-        rectangular_tube(6000, 80, truss_side_small);
+        rectangular_tube(6000, 80, truss_side_small_size);
     }    
+    // metal frame, other side
     translate([0, base_house_width - 60, 0] + [0, -25, 40]){
         rotate([0, 90, 0]) 
-        rectangular_tube(6000, 60, truss_side_small);
+        rectangular_tube(6000, 60, truss_side_small_size);
     }    
     //now the real roof
     translate([0, 0, truss_base_bar_side_long + 40]){
@@ -115,8 +118,8 @@ module roof()
             translate([distance_between_trusses * i, 0, 0]){
             for (k=[0:4]){ // num rows
                 translate([0, 
-                cos(angle_roof) * 155 * k, 
-                sin(angle_roof) * 155 * (k)]){
+                cos(angle_roof) * gutter_lindab_radius * k, 
+                sin(angle_roof) * gutter_lindab_radius * (k)]){
                     translate([20 + 40, 0, 120 - 17.5])
                         gutter_Lindab(1000)
                     ;

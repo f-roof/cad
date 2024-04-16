@@ -9,25 +9,25 @@ module angle_beam(length, angle)
 {
     difference(){
        // tube(length);
-       rectangular_tube(length, truss_top_chord_side_long, truss_side_small);
+       rectangular_tube(length, truss_top_chord_side_long, truss_side_small_size);
             // taietura sus
         translate([0, 0, truss_top_chord_length] - [1, 0, 0]) 
             rotate([-(angle), 0, 0]) 
-            cube([truss_side_small, 2 * truss_top_chord_side_long, 2 * truss_side_small] + [2, 0, 0]);
+            cube([truss_side_small_size, 2 * truss_top_chord_side_long, 2 * truss_side_small_size] + [2, 0, 0]);
             // taietura jos la unghi
         translate( - [1, 0, 0]) 
             rotate([-(angle), 0, 0]) 
-            cube([truss_side_small, 3 * truss_top_chord_side_long, 4 * truss_side_small] + [2, 0, 0]);
+            cube([truss_side_small_size, 3 * truss_top_chord_side_long, 4 * truss_side_small_size] + [2, 0, 0]);
     }
 }
 //---------------------------------------------------------------------------------------
 module truss_base_beam(length)
 {
-    rectangular_tube(length, truss_base_bar_side_long, truss_side_small);
+    rectangular_tube(length, truss_base_bar_side_long, truss_side_small_size);
     color("red"){
-        rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small);
+        rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
         translate([0, 0, length - (truss_external_offset + 130)])
-            rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small);
+            rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
         
     }
 /*
@@ -47,7 +47,7 @@ module truss(angle)
             angle_beam(truss_top_chord_length, angle);
     
 // other beam            
-    translate ([truss_side_small, truss_base_bar_length -2 * truss_external_offset, 0])   
+    translate ([truss_side_small_size, truss_base_bar_length -2 * truss_external_offset, 0])   
         translate ([0, 0, 0]) 
             rotate([90 - angle, 0, 0]) 
                 rotate([0, 0, 180]) 
@@ -62,14 +62,14 @@ module truss(angle)
             
 // interior left 1 
     translate ([0, 1765 + 130, 0])
-        rectangular_tube(1380, truss_base_bar_side_long, truss_side_small);
+        rectangular_tube(1380, truss_base_bar_side_long, truss_side_small_size);
 // interior right
     translate ([0, 4942 + 130, 0])
-        rectangular_tube(1380, truss_base_bar_side_long, truss_side_small);
+        rectangular_tube(1380, truss_base_bar_side_long, truss_side_small_size);
 // interior top
         translate ([0, 1765 + 130, 1380 + truss_base_bar_side_long]) rotate([-90, 0, 0])  
         color("red")
-        rectangular_tube(3237, truss_base_bar_side_long, truss_side_small);
+        rectangular_tube(3237, truss_base_bar_side_long, truss_side_small_size);
 }
 //---------------------------------------------------------------------------------------
 truss(38);
