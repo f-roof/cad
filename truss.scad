@@ -72,18 +72,5 @@ module truss(angle)
         rectangular_tube(3237, truss_base_bar_side_long, truss_side_small);
 }
 //---------------------------------------------------------------------------------------
-module stair_step(length, angle)
-{
-    difference(){
-        color("black") cube([length, 120, 120]);
-        //translate([-2, 4, 4])
-        //cube([length + 4, 120 - 8, 120 - 8]);
-        
-        translate([-2, -0, 17.5])
-        rotate([angle-90, 0, 0])
-        translate([0, -0, -20])
-        cube([length + 4, 250, 250]);
-    }
-}
-//---------------------------------------------------------------------------------------
 truss(38);
+

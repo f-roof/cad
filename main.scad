@@ -3,18 +3,19 @@
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
 include <params.scad>
+include <params_house.scad>
+include <params_truss.scad>
 //---------------------------------------------------------------------------------------
-use <roof_components.scad>
+use <truss.scad>
+use <house_no_roof.scad>
+
 use <basic components/solar_panels.scad>
 use <basic components/metal_profiles.scad>
 use <basic components/screws_nuts_washers.scad>
 use <basic components/metal_tiles.scad>
 
-use <house_no_roof.scad>
 include <basic components/params_solar_panels.scad>
 include <basic components/params_metal_profiles.scad>
-include <params_house.scad>
-include <params_truss.scad>
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {
