@@ -71,16 +71,8 @@ module roof_standard_tiles_side()
 }
 //---------------------------------------------------------------------------------------
 module roof()
-{
-// house
-    translate([0, 0, -house_height-2 * base_beam_side]) 
-        house();
-
-    // wood frame around house
-    color("maroon") translate([0, 0, -2 * base_beam_side]) roof_wood_house_support();
-    
-    // metal support
-    
+{  
+    // metal frame over existing house frame
     translate([0, 0, 0] + [0, 25, 40]){
         rotate([0, 90, 0]) 
         rectangular_tube(6000, 60, truss_side_small);
@@ -142,7 +134,21 @@ module roof()
         //    cedar(base_length, cedar_radius);
 }
 //---------------------------------------------------------------------------------------
-roof();
+module house_with_roof()
+{
+// house
+    translate([0, 0, -house_height-2 * base_beam_side]) 
+        house();
+
+    // wood frame around house
+    color("maroon") translate([0, 0, -2 * base_beam_side]) roof_wood_house_support();
+
+    roof();
+}
+//---------------------------------------------------------------------------------------
+house_with_roof();
+
+//roof();
 
 //roof_solar_panel_side();
 
