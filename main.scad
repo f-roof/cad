@@ -9,6 +9,7 @@ include <params_truss.scad>
 use <truss.scad>
 use <house_no_roof.scad>
 
+use <basic components/gutter.scad>
 use <basic components/solar_panels.scad>
 use <basic components/metal_profiles.scad>
 use <basic components/screws_nuts_washers.scad>
@@ -62,10 +63,10 @@ module roof_standard_tiles_side()
                 
         translate([i * distance_between_metal_tiles, 31, start_point_metal_tile])             
             rotate([90, 0, 0])
-                roof_tile(4500);
+                roof_tile(4300);
     }
     // wood bars to put the metal roof tiles on it
-    for (i = [0 : 11]){
+    for (i = [0 : 10]){
         translate([0, 0, i * distance_between_roof_metal_tiles_support + start_point_metal_tile])
             color("yellow") cube([6000, 30, 40]);
     }
@@ -109,14 +110,14 @@ module roof()
     }       
        
             // gutters
-        for (i = [0 : 4]){
+        for (i = [0 : 5]){ // num columns
             translate([distance_between_trusses * i, 0, 0]){
-            for (k=[0:27]){
+            for (k=[0:4]){ // num rows
                 translate([0, 
                 cos(angle_roof) * 155 * k, 
                 sin(angle_roof) * 155 * (k)]){
                     translate([20 + 50, 0, 120 - 17.5])
-                        //lindab_gutter(1000)
+                        gutter_Lindab(1000)
                     ;
             }
         }
@@ -124,9 +125,9 @@ module roof()
 }    
 }
 
-    //translate ([0, base_house_width / 2, 2700])
-        //rotate([0, 90, 0])
-            //ridge(base_length, ridge_radius);
+    translate ([0, base_house_width / 2, 2800])
+       rotate([0, 90, 0])
+           ridge(base_length, ridge_radius);
             
 
             
