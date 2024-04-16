@@ -125,15 +125,10 @@ module roof()
 }    
 }
 
+// top ridge
     translate ([0, base_house_width / 2, 2800])
        rotate([0, 90, 0])
            ridge(base_length, ridge_radius);
-            
-
-            
-//     translate ([base_length, -base_bar_extra_length - cedar_radius, base_bar_side_long]) 
-    //        rotate([0, -90, 0]) 
-        //    cedar(base_length, cedar_radius);
 }
 //---------------------------------------------------------------------------------------
 module house_with_roof()
