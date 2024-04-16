@@ -140,7 +140,7 @@ module house_with_roof()
     translate([0, 0, -house_height-2 * base_beam_side]) 
         house();
 
-    // wood frame around house
+    // wood frame on the top of the  house
     color("maroon") translate([0, 0, -2 * base_beam_side]) roof_wood_house_support();
 
     roof();
