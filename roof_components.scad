@@ -2,32 +2,32 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //------------------------------------------------------------------------------------
-include <params.scad>
+include <params_truss.scad>
 use <basic components/metal_profiles.scad>
 //-------------------------------------------------------------
-module angle_beam(length, rotation_angle)
+module angle_beam(length, angle)
 {
     difference(){
        // tube(length);
-       rectangular_tube(length, truss_side_long, truss_side_small);
+       rectangular_tube(length, truss_top_chord_side_long, truss_side_small);
             // taietura sus
         translate([0, 0, truss_top_chord_length] - [1, 0, 0]) 
-            rotate([-(rotation_angle), 0, 0]) 
-            cube([truss_side_small, 2 * truss_side_long, 2 * truss_side_small] + [2, 0, 0]);
+            rotate([-(angle), 0, 0]) 
+            cube([truss_side_small, 2 * truss_top_chord_side_long, 2 * truss_side_small] + [2, 0, 0]);
             // taietura jos la unghi
         translate( - [1, 0, 0]) 
-            rotate([-(rotation_angle), 0, 0]) 
-            cube([truss_side_small, 3 * truss_side_long, 4 * truss_side_small] + [2, 0, 0]);
+            rotate([-(angle), 0, 0]) 
+            cube([truss_side_small, 3 * truss_top_chord_side_long, 4 * truss_side_small] + [2, 0, 0]);
     }
 }
 //---------------------------------------------------------------------------------------
-module base_bar(length)
+module truss_base_beam(length)
 {
-    rectangular_tube(length, base_bar_side_long, truss_side_small);
+    rectangular_tube(length, truss_base_bar_side_long, truss_side_small);
     color("red"){
-        rectangular_tube(offset + 130, base_bar_side_long, truss_side_small);
-        translate([0, 0, length - (offset + 130)])
-            rectangular_tube(offset + 130, base_bar_side_long, truss_side_small);
+        rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small);
+        translate([0, 0, length - (truss_external_offset + 130)])
+            rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small);
         
     }
 /*
@@ -39,47 +39,40 @@ module base_bar(length)
 */
 }
 //---------------------------------------------------------------------------------------
-module truss_base_beam()
+module truss(angle)
 {
-    base_bar(base_bar_length);
-}
-//---------------------------------------------------------------------------------------
-module truss()
-{
-
 // one beam
      translate ([0, 0, 0]) 
         rotate([-(90-angle), 0, 0]) 
             angle_beam(truss_top_chord_length, angle);
     
 // other beam            
-    translate ([truss_side_small, base_bar_length -2 * offset, 0])   
+    translate ([truss_side_small, truss_base_bar_length -2 * truss_external_offset, 0])   
         translate ([0, 0, 0]) 
-            rotate([90-angle, 0, 0]) 
+            rotate([90 - angle, 0, 0]) 
                 rotate([0, 0, 180]) 
                 angle_beam(truss_top_chord_length, angle)
                 ;
             
 // base beam            
-    translate([0, -offset, 0])   
+    translate([0, -truss_external_offset, 0])   
         rotate([-90, 0, 0]) 
-            truss_base_beam()
+            truss_base_beam(truss_base_bar_length)
             ;
             
 // interior left 1 
     translate ([0, 1765 + 130, 0])
-        rectangular_tube(1380, base_bar_side_long, truss_side_small);
+        rectangular_tube(1380, truss_base_bar_side_long, truss_side_small);
 // interior right
     translate ([0, 4942 + 130, 0])
-        rectangular_tube(1380, base_bar_side_long, truss_side_small);
+        rectangular_tube(1380, truss_base_bar_side_long, truss_side_small);
 // interior top
-        translate ([0, 1765 + 130, 1380 + base_bar_side_long]) rotate([-90, 0, 0])  
+        translate ([0, 1765 + 130, 1380 + truss_base_bar_side_long]) rotate([-90, 0, 0])  
         color("red")
-        rectangular_tube(3237, base_bar_side_long, truss_side_small);
-
+        rectangular_tube(3237, truss_base_bar_side_long, truss_side_small);
 }
 //---------------------------------------------------------------------------------------
-module stair_step(length)
+module stair_step(length, angle)
 {
     difference(){
         color("black") cube([length, 120, 120]);
@@ -93,4 +86,4 @@ module stair_step(length)
     }
 }
 //---------------------------------------------------------------------------------------
-truss();
+truss(38);

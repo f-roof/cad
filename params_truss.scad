@@ -3,18 +3,14 @@
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
 include <params_house.scad>
-include <basic components/params_metal_tiles.scad>
 //---------------------------------------------------------------------------------------
-angle_roof = 38;
+base_bar_half_span = 3380 + 130.08;
 
-gutter_length = 1000;
-distance_between_trusses = gutter_length + 100;
-tolerance_between_panels = 2;
-first_T_at = 900;
+truss_top_chord_length = 4454;
+truss_base_bar_side_long = 60;
+truss_top_chord_side_long = 80;
+truss_side_small = 40; // this is the same for base and chord
 
-distance_between_metal_tiles = tile_width - 50;
-distance_between_roof_metal_tiles_support = 400;
-start_point_metal_tile = 100;
-
-ridge_radius = 100;
+truss_external_offset = 400;
+truss_base_bar_length = 2 * base_bar_half_span + 2 * truss_external_offset;
 //---------------------------------------------------------------------------------------

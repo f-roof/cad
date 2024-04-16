@@ -27,3 +27,4 @@ module roof_wood_house_support()
         cube([base_beam_side, base_house_width, base_beam_side]);    
 }
 //---------------------------------------------------------------------------------------
+roof_wood_house_support(); // this was already there

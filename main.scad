@@ -14,13 +14,14 @@ use <house_no_roof.scad>
 include <basic components/params_solar_panels.scad>
 include <basic components/params_metal_profiles.scad>
 include <params_house.scad>
+include <params_truss.scad>
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {
     for (i = [0:5])
         translate([distance_between_trusses * i, 0, 0]) 
         rotate([-90, 0, 0])
-            angle_beam(truss_top_chord_length, angle);
+            angle_beam(truss_top_chord_length, angle_roof);
             
      // T profiles
         for (i = [0 : 3])
@@ -56,7 +57,7 @@ module roof_standard_tiles_side()
         translate([distance_between_trusses * i, 0, 0]) 
             translate ([truss_side_small, 0, 0])   
                 rotate([0, 0, 180]) 
-                    angle_beam(truss_top_chord_length, angle);
+                    angle_beam(truss_top_chord_length, angle_roof);
                 
         translate([i * distance_between_metal_tiles, 31, start_point_metal_tile])             
             rotate([90, 0, 0])
@@ -89,23 +90,23 @@ module roof()
         rectangular_tube(6000, 60, truss_side_small);
     }    
     //now the real roof
-    translate([0, 0, base_bar_side_long + 40]){
+    translate([0, 0, truss_base_bar_side_long + 40]){
 
         translate([0, -0, 0])
-            rotate([angle, 0, 0]) 
+            rotate([angle_roof, 0, 0]) 
                 roof_solar_panel_side()
                 ;
         translate([0, base_house_width + 0, 0])
-            rotate([90-angle, 0, 0]) 
+            rotate([90-angle_roof, 0, 0]) 
                 roof_standard_tiles_side();
 
         for (i = [0 : 5]){
             translate([distance_between_trusses * i, -130 + 60 + 25, 0]){
-                truss();
+                truss(angle_roof);
             for (k=[0:27]){
                 translate([0, 
-                cos(angle) * 155 * k, 
-                sin(angle) * 155 * (k)]){
+                cos(angle_roof) * 155 * k, 
+                sin(angle_roof) * 155 * (k)]){
                     translate([-80, 0, -17.5]) 
                         //stair_step(200)
                         ;
@@ -119,8 +120,8 @@ module roof()
             translate([distance_between_trusses * i, 0, 0]){
             for (k=[0:27]){
                 translate([0, 
-                cos(angle) * 155 * k, 
-                sin(angle) * 155 * (k)]){
+                cos(angle_roof) * 155 * k, 
+                sin(angle_roof) * 155 * (k)]){
                     translate([20 + 50, 0, 120 - 17.5])
                         //lindab_gutter(1000)
                     ;
