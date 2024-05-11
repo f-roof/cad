@@ -2,8 +2,8 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
-include <params_house.scad>
-include <basic components/params_metal_tiles.scad>
+include <house_params.scad>
+include <basic components/metal_tiles_params.scad>
 //---------------------------------------------------------------------------------------
 angle_roof = 38;
 
@@ -22,4 +22,10 @@ gutter_support_length = 240;
 gutter_support_size = 40;
 gutter_support_1st_hole = 84;
 gutter_support_2nd_hole = 230;
+
+num_gutters_rows_south_side = 5;
+num_gutters_columns_south_side = 6;
+
+first_gutter_at_Y = cos(angle_roof) * 30;
+first_gutter_at_Z = sin(angle_roof) * 30;
 //---------------------------------------------------------------------------------------

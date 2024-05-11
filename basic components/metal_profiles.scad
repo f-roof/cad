@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
-include <params_metal_profiles.scad>
+include <metal_profiles_params.scad>
 //---------------------------------------------------------------------------------------
 module rectangular_tube(length, H, W)
 {

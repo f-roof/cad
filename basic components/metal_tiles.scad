@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 // -----------------------------------------------------------------------------------
-include <params_metal_tiles.scad>
+include <metal_tiles_params.scad>
 // -----------------------------------------------------------------------------------
 module roof_tile(length)
 {

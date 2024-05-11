@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
-include <params_house.scad>
+include <house_params.scad>
 //---------------------------------------------------------------------------------------
 base_bar_half_span = 3380 + 130.08;
 

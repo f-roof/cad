@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 // -----------------------------------------------------------------------------------
-include <params_solar_panels.scad>
+include <solar_panels_params.scad>
 //---------------------------------------------------------------------------------------
 module solar_panel_Hyundai()
 {

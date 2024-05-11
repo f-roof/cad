@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 // -----------------------------------------------------------------------------------
-include <params_nuts.scad>
+include <screws_nuts_washers_params.scad>
 include <tolerances.scad>
 //------------------------------------------------------------------------------------
 module sunken_screw (screw_radius, screw_length, head_radius, head_thick)

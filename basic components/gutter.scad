@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
-include <params_gutter.scad>
+include <gutter_params.scad>
 include <tolerances.scad>
 //---------------------------------------------------------------------------------------
 module gutter_Lindab(length)

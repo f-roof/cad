@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 // -----------------------------------------------------------------------------------
-include <params_house.scad>
+include <house_params.scad>
 include <params.scad>
 //---------------------------------------------------------------------------------------
 module house()
@@ -10,7 +10,7 @@ module house()
     cube([base_length, base_house_width, house_height]);
 }
 //---------------------------------------------------------------------------------------
-module roof_wood_house_support()
+module roof_wood_support_on_house()
 {
 // long side
     translate ([0, 0, base_beam_side]) 
@@ -27,4 +27,4 @@ module roof_wood_house_support()
         cube([base_beam_side, base_house_width, base_beam_side]);    
 }
 //---------------------------------------------------------------------------------------
-roof_wood_house_support(); // this was already there
+roof_wood_support_on_house(); // this was already there

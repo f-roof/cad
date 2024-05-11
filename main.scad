@@ -3,8 +3,8 @@
 // Author: Mihai Oltean; https://tcreate.org
 //---------------------------------------------------------------------------------------
 include <params.scad>
-include <params_house.scad>
-include <params_truss.scad>
+include <house_params.scad>
+include <truss_params.scad>
 
 //---------------------------------------------------------------------------------------
 use <truss.scad>
@@ -15,10 +15,11 @@ use <basic components/solar_panels.scad>
 use <basic components/metal_profiles.scad>
 use <basic components/screws_nuts_washers.scad>
 use <basic components/metal_tiles.scad>
+use <other_components.scad>
 
-include <basic components/params_solar_panels.scad>
-include <basic components/params_metal_profiles.scad>
-include <basic components/params_gutter.scad>
+include <basic components/solar_panels_params.scad>
+include <basic components/metal_profiles_params.scad>
+include <basic components/gutter_params.scad>
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {
@@ -76,17 +77,11 @@ module roof_standard_tiles_side()
 //---------------------------------------------------------------------------------------
 module roof()
 {  
-        translate([0, -0, 0])
-            rotate([angle_roof, 0, 0]) 
-                roof_solar_panel_side()
-                ;
-        translate([0, base_house_width + 0, 0])
-            rotate([90-angle_roof, 0, 0]) 
-                roof_standard_tiles_side();
-
-        for (i = [0 : 6]){
-            translate([distance_between_trusses * i, -130 + 60 + 25, 0]){
-                truss(angle_roof);
+    // trusses
+    for (i = [0 : 6]){
+        translate([distance_between_trusses * i, 0, 0]){
+            truss(angle_roof);
+                
             for (k=[0:27]){
                 translate([0, 
                 cos(angle_roof) * 155 * k, 
@@ -95,29 +90,52 @@ module roof()
                         //stair_step(200)
                         ;
                     }
-            }
+            }// end for k
         }
-    }       
+    }// end for i
+
+    translate([0, -0, 0])
+            rotate([angle_roof, 0, 0]) 
+                roof_solar_panel_side()
+                ;
+        translate([0, base_house_width + 0, 0])
+            rotate([90-angle_roof, 0, 0]) 
+                roof_standard_tiles_side()
+                ;
+
        
-            // gutters
-        for (i = [0 : 5]){ // num columns
-            translate([distance_between_trusses * i, 0, 0]){
-            for (k=[0:4]){ // num rows
-                translate([0, 
-                cos(angle_roof) * gutter_lindab_radius * k, 
-                sin(angle_roof) * gutter_lindab_radius * (k)]){
-                    translate([20 + 40, 0, 120 - 17.5])
+// gutters for plants
+    for (i = [0 : num_gutters_columns_south_side - 1]){ // num columns
+        translate([distance_between_trusses * i, 0, 0]){
+            for (k = [0:num_gutters_rows_south_side - 1]){ // num rows
+                translate([0,
+                    cos(angle_roof) * gutter_lindab_radius * k + first_gutter_at_Y, 
+                    sin(angle_roof) * gutter_lindab_radius * k + first_gutter_at_Z]
+                ){
+                //gutter support
+                    translate([0, -gutter_lindab_bottom_width, 0])
+                        mirror([0, 0, 1])
+                        rotate([0, 0, 90])
+                            gutter_plants_L_support();
+                            
+                    translate([40, -gutter_lindab_bottom_width, 0])
+                        rotate([0, 180, 0])
+                        rotate([0, 0, 90])
+                            gutter_plants_L_support();
+               // gutters
+                    translate([20 + truss_side_small_size, -gutter_lindab_bottom_width, 0])
                         gutter_Lindab(1000)
                     ;
-            }
+                }
+            }// end for k
         }
-    }
-}    
+    }// end for i
 
 // top ridge
     translate ([0, base_house_width / 2, 2700])
        rotate([0, 90, 0])
-           ridge(base_length, ridge_radius);
+           ridge(base_length, ridge_radius)
+           ;
 }
 //---------------------------------------------------------------------------------------
 module house_with_roof()
@@ -127,13 +145,15 @@ module house_with_roof()
         house();
 
     // wood frame on the top of the  house
-    color("maroon") translate([0, 0, -2 * base_beam_side]) roof_wood_house_support();
+    color("maroon") 
+        translate([0, 0, -2 * base_beam_side]) 
+            roof_wood_support_on_house();
 
         // metal frame over existing house frame
     // just to reinforce the existing base
     translate([0, 0, 0] + [0, 25, 40]){
         rotate([0, 90, 0]) 
-        rectangular_tube(6000, 80, truss_side_small_size);
+            rectangular_tube(6000, 80, truss_side_small_size);
     }    
     // metal frame, other side
     translate([0, base_house_width - 60, 0] + [0, -25, 40]){

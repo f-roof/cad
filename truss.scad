@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://tcreate.org
 //------------------------------------------------------------------------------------
-include <params_truss.scad>
+include <truss_params.scad>
 use <basic components/metal_profiles.scad>
 //-------------------------------------------------------------
 module angle_beam(length, angle)
