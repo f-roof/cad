@@ -2,6 +2,8 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
+// LAST UPDATE: 2024.12.26.0
+//---------------------------------------------------------------------------------------
 include <params.scad>
 include <house/house_params.scad>
 include <trusses/truss_params.scad>
