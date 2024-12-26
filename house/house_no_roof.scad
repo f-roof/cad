@@ -1,9 +1,8 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+// Author: Mihai Oltean; https://mihaioltean.github.io
 // -----------------------------------------------------------------------------------
 include <house_params.scad>
-include <params.scad>
 //---------------------------------------------------------------------------------------
 module house()
 {

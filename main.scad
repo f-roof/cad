@@ -1,25 +1,24 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+// Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
 include <params.scad>
-include <house_params.scad>
-include <truss_params.scad>
+include <house/house_params.scad>
+include <trusses/truss_params.scad>
 
+include <basic/solar_panels_params.scad>
+include <basic/metal_profiles_params.scad>
+include <basic/gutter_params.scad>
 //---------------------------------------------------------------------------------------
-use <truss.scad>
-use <house_no_roof.scad>
+use <trusses/truss.scad>
+use <house/house_no_roof.scad>
 
-use <basic components/gutter.scad>
-use <basic components/solar_panels.scad>
-use <basic components/metal_profiles.scad>
-use <basic components/screws_nuts_washers.scad>
-use <basic components/metal_tiles.scad>
-use <other_components.scad>
-
-include <basic components/solar_panels_params.scad>
-include <basic components/metal_profiles_params.scad>
-include <basic components/gutter_params.scad>
+use <basic/gutter.scad>
+use <basic/solar_panels.scad>
+use <basic/metal_profiles.scad>
+use <basic/screws_nuts_washers.scad>
+use <basic/metal_tiles.scad>
+use <components/others.scad>
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {

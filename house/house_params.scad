@@ -1,6 +1,6 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+// Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
 base_length = 14000;
 base_house_width = 6930;

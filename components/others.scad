@@ -1,9 +1,10 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+// Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-include <params.scad>
-include <basic components/tolerances.scad>
+include <../params.scad>
+include <../basic/tolerances.scad>
+include <../basic/gutter_params.scad>
 //---------------------------------------------------------------------------------------
 module stair_step(length, angle)
 {

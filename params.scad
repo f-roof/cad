@@ -1,13 +1,12 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+// Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-include <house_params.scad>
-include <basic components/metal_tiles_params.scad>
+include <basic/metal_tiles_params.scad>
+include <basic/gutter_params.scad>
 //---------------------------------------------------------------------------------------
 angle_roof = 38;
 
-gutter_length = 1000;
 distance_between_trusses = gutter_length + 80;
 tolerance_between_panels = 2;
 first_T_at = 900;
