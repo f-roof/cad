@@ -1,23 +1,40 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+// Author: Mihai Oltean; https://mihaioltean.github.io
+//------------------------------------------------------------------------------------
+// LAST UPDATE: 2024.12.26.0
 //------------------------------------------------------------------------------------
 include <truss_params.scad>
 use <../basic/metal_profiles.scad>
 //-------------------------------------------------------------
-module angle_beam(length, angle)
+module truss_angle_beam(length, angle)
 {
     difference(){
-       // tube(length);
-       rectangular_tube(length, truss_top_chord_side_long, truss_side_small_size);
-            // taietura sus
-        translate([0, 0, truss_top_chord_length] - [1, 0, 0]) 
+        rectangular_tube(length, truss_top_chord_side_long, truss_side_small_size);
+            // cut up
+        translate([0, 0, length] - [1, 0, 0]) 
             rotate([-(angle), 0, 0]) 
             cube([truss_side_small_size, 2 * truss_top_chord_side_long, 2 * truss_side_small_size] + [2, 0, 0]);
-            // taietura jos la unghi
+            // cut down
         translate( - [1, 0, 0]) 
             rotate([-(angle), 0, 0]) 
             cube([truss_side_small_size, 3 * truss_top_chord_side_long, 4 * truss_side_small_size] + [2, 0, 0]);
+    }
+}
+//---------------------------------------------------------------------------------------
+module truss_angle_beam_interior(length, angle)
+{
+    difference(){
+  
+       rectangular_tube(length, truss_base_bar_side_long, truss_side_small_size);
+            // cut up
+        translate([0, 0, length] - [1, 0, 0])
+            rotate([-(90-angle), 0, 0])
+            cube([truss_side_small_size, 2 * truss_base_bar_side_long, 2 * truss_side_small_size] + [2, 0, 0]);
+            // cut down
+        translate( - [1, 0, 0]) 
+            rotate([-(angle), 0, 0]) 
+            cube([truss_side_small_size, 3 * truss_base_bar_side_long, 4 * truss_side_small_size] + [2, 0, 0]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -110,17 +127,18 @@ module truss_lateral_plate_bottom(angle)
 //---------------------------------------------------------------------------------------
 module truss(angle)
 {
-// one beam
+// one angle beam
      translate ([0, 0, 0]) 
         rotate([-(90-angle), 0, 0]) 
-            angle_beam(truss_top_chord_length, angle);
+            truss_angle_beam(truss_top_chord_length, angle)
+            ;
     
-// other beam            
+// other angle beam            
     translate ([truss_side_small_size, truss_base_bar_length -2 * truss_external_offset, 0])   
         translate ([0, 0, 0]) 
             rotate([90 - angle, 0, 0]) 
                 rotate([0, 0, 180]) 
-                angle_beam(truss_top_chord_length, angle)
+                    truss_angle_beam(truss_top_chord_length, angle)
                 ;
             
 // base beam            
@@ -129,16 +147,18 @@ module truss(angle)
             truss_base_beam(truss_base_bar_length)
             ;
             
-// interior left 1 
+// interior beam left 1 
     translate ([0, 1765 + 130, 0])
         rectangular_tube(1380, truss_base_bar_side_long, truss_side_small_size);
-// interior right
+// interior beam right
     translate ([0, 4942 + 130, 0])
         rectangular_tube(1380, truss_base_bar_side_long, truss_side_small_size);
-// interior top
-        translate ([0, 1765 + 130, 1380 + truss_base_bar_side_long]) rotate([-90, 0, 0])  
-        color("red")
-        rectangular_tube(3237, truss_base_bar_side_long, truss_side_small_size);
+// interior beam top
+    translate ([0, 1765 + 130, 1380 + truss_base_bar_side_long - 60]) 
+        mirror([0,0,1])
+            rotate([-90, 0, 0])  
+        //        color("red")
+        truss_angle_beam_interior(3237, angle);
         
 // PLATES
 // top plate
@@ -166,7 +186,8 @@ module truss(angle)
 }
 //---------------------------------------------------------------------------------------
 truss(38);
-//truss_lateral_plate_top(38);
-//truss_lateral_plate_bottom(90-38);
-//angle_beam(truss_top_chord_length, 38);
 
+// truss_angle_beam_interior(1000, 38);
+// truss_lateral_plate_top(38);
+// truss_lateral_plate_bottom(90-38);
+// truss_angle_beam(truss_top_chord_length, 38);
