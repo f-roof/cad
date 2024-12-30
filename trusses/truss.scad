@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //------------------------------------------------------------------------------------
-// LAST UPDATE: 2024.12.26.0
+// LAST UPDATE: 2024.12.30.0
 //------------------------------------------------------------------------------------
 include <truss_params.scad>
 use <../basic/metal_profiles.scad>
@@ -46,9 +46,9 @@ module truss_base_beam(length)
     
     
         color("red"){ // mark with red; just to see it.
-            rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
-            translate([0, 0, length - (truss_external_offset + 130)])
-                rectangular_tube(truss_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
+            rectangular_tube(truss_base_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
+            translate([0, 0, length - (truss_base_external_offset + 130)])
+                rectangular_tube(truss_base_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
             
         }
         
@@ -62,6 +62,7 @@ module truss_base_beam(length)
     }
 }
 //---------------------------------------------------------------------------------------
+/*
 module truss_lateral_plate_top(angle)
 {
     //linear_extrude(height = 5)
@@ -125,27 +126,70 @@ module truss_lateral_plate_bottom(angle)
     }
 }
 //---------------------------------------------------------------------------------------
+*/
+module truss_lateral_plate()
+{
+    difference(){
+        cube([plate_length, plate_height, plate_thick]);
+        translate([0, 0, -1]){
+            // holes
+            translate([plate_distance_to_hole, plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5);
+            translate([plate_length - plate_distance_to_hole, plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5);
+            translate([plate_distance_to_hole, plate_height - plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5);
+            translate([plate_length - plate_distance_to_hole, plate_height - plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5);
+        }
+    }
+}
+//---------------------------------------------------------------------------------------
+module truss_lateral_plate_T_holes()
+{
+    difference(){
+        cube([plate_length, plate_height, plate_thick]);
+        translate([0, 0, -1]){
+            // holes
+            translate([plate_distance_to_hole, plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5)
+                ;
+            translate([plate_length - plate_distance_to_hole, plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5)
+                ;
+            translate([plate_length / 2, plate_height - plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5)
+                ;
+            translate([plate_length / 2 , plate_height - 3 * plate_distance_to_hole, 0])
+                cylinder(h = plate_thick + 2, r = 5)
+                ;
+        }
+    }
+}
+//---------------------------------------------------------------------------------------
+
 module truss(angle)
 {
-// one angle beam
+// base beam            
+    translate([0, -truss_base_external_offset, 0])   
+        rotate([-90, 0, 0]) 
+            truss_base_beam(truss_base_bar_length)
+            ;
+
+// a angle beam
      translate ([0, 0, 0]) 
         rotate([-(90-angle), 0, 0]) 
             truss_angle_beam(truss_top_chord_length, angle)
             ;
     
 // other angle beam            
-    translate ([truss_side_small_size, truss_base_bar_length -2 * truss_external_offset, 0])   
+    translate ([truss_side_small_size, truss_base_bar_length -2 * truss_base_external_offset, 0])   
         translate ([0, 0, 0]) 
             rotate([90 - angle, 0, 0]) 
                 rotate([0, 0, 180]) 
                     truss_angle_beam(truss_top_chord_length, angle)
                 ;
             
-// base beam            
-    translate([0, -truss_external_offset, 0])   
-        rotate([-90, 0, 0]) 
-            truss_base_beam(truss_base_bar_length)
-            ;
             
 // interior beam left 1 
     translate ([0, 1765 + 130, 0])
@@ -162,32 +206,84 @@ module truss(angle)
         
 // PLATES
 // top plate
-    translate([0, truss_base_half_length - plate_top_base / 2, truss_height - plate_height]) 
+    translate([0, truss_base_half_length - plate_length / 2, truss_height - plate_height]) 
     translate([-plate_thick, 0, 0]) 
     rotate([0, 90, 0])
         rotate([0, 0, 90]) 
-            truss_lateral_plate_top(angle);
-    translate([0, truss_base_half_length - plate_top_base / 2, truss_height - plate_height]) 
+            truss_lateral_plate();
+            
+    translate([0, truss_base_half_length - plate_length / 2, truss_height - plate_height]) 
     translate([truss_side_small_size, 0, 0]) 
     rotate([0, 90, 0]) 
         rotate([0, 0, 90]) 
-            truss_lateral_plate_top(angle);
+            truss_lateral_plate();
             
-// bottom plates
-    translate([0, plate_height + 30, -truss_base_bar_side_long]) 
+// bottom plates; left
+    translate([0, plate_height + 30, -truss_base_bar_side_long / 2]) 
         mirror([0, 1, 0])
         rotate([0, -90, 0]) 
-            truss_lateral_plate_bottom(90-angle);  
+            truss_lateral_plate();  
             
-    translate([truss_side_small_size, plate_height + 30, -truss_base_bar_side_long]) 
+    translate([truss_side_small_size, plate_height + 30, -truss_base_bar_side_long /2]) 
         mirror([0, 1, 0])
         rotate([0, -90, 0]) 
-            truss_lateral_plate_bottom(90-angle);            
+            truss_lateral_plate();
+            
+// bottom plate; right
+    translate([0, truss_base_bar_length - (2*truss_base_external_offset + 30), -truss_base_bar_side_long / 2]) 
+        mirror([0, 1, 0])
+        rotate([0, -90, 0]) 
+            truss_lateral_plate();  
+            
+    translate([truss_side_small_size, truss_base_bar_length - (2*truss_base_external_offset + 30), -truss_base_bar_side_long /2]) 
+        mirror([0, 1, 0])
+        rotate([0, -90, 0]) 
+            truss_lateral_plate();
+            
+// angled, at the middle (approx)            
+    translate([0, 1765 + plate_height + 30, -truss_base_bar_side_long / 2 + 1380]) 
+        mirror([0, 1, 0])
+        rotate([-angle, 0, 0])
+        rotate([0, -90, 0]) 
+            
+            truss_lateral_plate();  
+            
+    translate([truss_side_small_size, plate_height + 30, -truss_base_bar_side_long /2]) 
+        mirror([0, 1, 0])
+        rotate([0, -90, 0]) 
+            truss_lateral_plate();
+            
+           
+
+// bottom plates; left vertical
+    translate([0, 1765 + 130 , -truss_base_bar_side_long / 2]) 
+        mirror([0, 1, 0])
+        rotate([90, 0, 0])
+        rotate([0, -90, 0])
+            truss_lateral_plate_T_holes();  
+            
+    translate([truss_side_small_size, 1765 + 130, -truss_base_bar_side_long /2]) 
+        mirror([0, 1, 0])
+        rotate([90, 0, 0])
+        rotate([0, -90, 0]) 
+            truss_lateral_plate_T_holes();
+
+// bottom plates; right vertical
+    translate([0, truss_base_bar_length - (2* truss_base_external_offset +1765 + 130) - plate_length , -truss_base_bar_side_long / 2]) 
+        mirror([0, 1, 0])
+        rotate([90, 0, 0])
+        rotate([0, -90, 0])
+            truss_lateral_plate_T_holes();  
+            
+    translate([truss_side_small_size, truss_base_bar_length - (2*truss_base_external_offset + 1765 + 130) - plate_length, -truss_base_bar_side_long /2]) 
+        mirror([0, 1, 0])
+        rotate([90, 0, 0])
+        rotate([0, -90, 0]) 
+            truss_lateral_plate_T_holes();
 }
 //---------------------------------------------------------------------------------------
 truss(38);
 
 // truss_angle_beam_interior(1000, 38);
-// truss_lateral_plate_top(38);
-// truss_lateral_plate_bottom(90-38);
 // truss_angle_beam(truss_top_chord_length, 38);
+ // truss_lateral_plate();
