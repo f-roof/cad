@@ -22,9 +22,15 @@ gutter_support_size = 40;
 gutter_support_1st_hole = 84;
 gutter_support_2nd_hole = 230;
 
-num_gutters_rows_south_side = 5;
-num_gutters_columns_south_side = 6;
+num_gutters_rows_south_side = 6;
+num_gutters_columns_south_side = 1;
 
-first_gutter_at_Y = cos(angle_roof) * 30;
-first_gutter_at_Z = sin(angle_roof) * 30;
+first_gutter_at_Y = cos(angle_roof) * 90;
+first_gutter_at_Z = sin(angle_roof) * 90;
+
+first_gutter_support_at_Y = cos(angle_roof) * 1;
+first_gutter_support_at_Z = sin(angle_roof) * 1;
+
+gutter_tube_support_length = 85;
+
 //---------------------------------------------------------------------------------------

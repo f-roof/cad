@@ -2,17 +2,17 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-// LAST UPDATE: 2024.12.26.0
+// LAST UPDATE: 2025.03.15.0
 //---------------------------------------------------------------------------------------
 include <params.scad>
 include <house/house_params.scad>
-include <trusses/truss_params.scad>
+include <trusses/truss2/truss_params.scad>
 
 include <basic/solar_panels_params.scad>
 include <basic/metal_profiles_params.scad>
 include <basic/gutter_params.scad>
 //---------------------------------------------------------------------------------------
-use <trusses/truss.scad>
+use <trusses/truss2/truss.scad>
 use <house/house_no_roof.scad>
 
 use <basic/gutter.scad>
@@ -27,7 +27,7 @@ module roof_solar_panel_side()
     for (i = [0:5])
         translate([distance_between_trusses * i, 0, 0]) 
         rotate([-90, 0, 0])
-            angle_beam(truss_top_chord_length, angle_roof);
+            truss_angle_beam(truss_top_chord_length, angle_roof);
             
      // T profiles
         for (i = [0 : 3])
@@ -50,9 +50,9 @@ module roof_solar_panel_side()
             translate([k * distance_between_trusses + truss_side_small_size / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
             4.1]) mirror([0,0,1]){
                 translate([0, -10, 0])
-                    M8_sunken (100);
+                    screw_M8_sunken (100);
                 translate([0, 10, 0])
-                    M8_sunken (100);
+                    screw_M8_sunken (100);
             }
             }        
 }
@@ -63,7 +63,7 @@ module roof_standard_tiles_side()
         translate([distance_between_trusses * i, 0, 0]) 
             translate ([truss_side_small_size, 0, 0])   
                 rotate([0, 0, 180]) 
-                    angle_beam(truss_top_chord_length, angle_roof);
+                    truss_angle_beam(truss_top_chord_length, angle_roof);
                 
         translate([i * distance_between_metal_tiles, 31, start_point_metal_tile])             
             rotate([90, 0, 0])
@@ -106,33 +106,40 @@ module roof()
 
        
 // gutters for plants
+    for (i = [0 : num_gutters_columns_south_side]){ // num columns
+        translate([distance_between_trusses * i, 0, 0]){
+            for (k = [0:num_gutters_rows_south_side - 1]){ // num rows
+                translate([0,
+                    cos(angle_roof) * gutter_lindab_radius * k, 
+                    sin(angle_roof) * gutter_lindab_radius * k]
+                ){
+                //gutter support
+                translate([-10,  0,0])
+                    rotate([-(90-angle_roof), 0, 0]) 
+                        gutter_plants_tube_support_with_screws();
+                }
+            }// end for k
+        }
+    }// end for i
+
     for (i = [0 : num_gutters_columns_south_side - 1]){ // num columns
         translate([distance_between_trusses * i, 0, 0]){
             for (k = [0:num_gutters_rows_south_side - 1]){ // num rows
                 translate([0,
-                    cos(angle_roof) * gutter_lindab_radius * k + first_gutter_at_Y, 
-                    sin(angle_roof) * gutter_lindab_radius * k + first_gutter_at_Z]
+                    cos(angle_roof) * gutter_lindab_radius * k, 
+                    sin(angle_roof) * gutter_lindab_radius * k]
                 ){
-                //gutter support
-                    translate([0, -gutter_lindab_bottom_width, 0])
-                        mirror([0, 0, 1])
-                        rotate([0, 0, 90])
-                            gutter_plants_L_support();
-                            
-                    translate([40, -gutter_lindab_bottom_width, 0])
-                        rotate([0, 180, 0])
-                        rotate([0, 0, 90])
-                            gutter_plants_L_support();
                // gutters
-                    translate([20 + truss_side_small_size, -gutter_lindab_bottom_width, 0])
-                        gutter_Lindab(1000)
+                translate([0,  +first_gutter_at_Y, first_gutter_at_Z])
+                    translate([-20 +truss_side_small_size, -gutter_lindab_bottom_width, 0])
+                        gutter_Lindab(1080)
                     ;
                 }
             }// end for k
         }
     }// end for i
 
-// top ridge
+    // top ridge
     translate ([0, base_house_width / 2, 2700])
        rotate([0, 90, 0])
            ridge(base_length, ridge_radius)
