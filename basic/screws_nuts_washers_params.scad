@@ -13,4 +13,12 @@ M8_nut_height = M8_nut_thick;
 M8_screw_head_radius = 6.5;
 
 big_screw_radius = 6;
+
+M6_screw_radius = 3;
+M6_nut_radius = 5.65;
+M6_nut_thick = 5;
+M6_nut_slim_thick = 3;
+M6_autolock_nut_thick = 6;
+M6_long_nut_thick = 9;
+
 // -----------------------------------------------------------------------------------
