@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //------------------------------------------------------------------------------------
-// LAST UPDATE: 2025.03.15.0
+// LAST UPDATE: 2025.03.20.0
 //------------------------------------------------------------------------------------
 include <truss_params.scad>
 use <../../basic/metal_profiles.scad>
@@ -25,6 +25,38 @@ module truss_angle_beam(length, angle)
 {
     difference(){
         rectangular_tube(length, truss_top_chord_side_long, truss_side_small_size);
+        
+        echo("screw_V_angle_long_bottom_1", screw_V_angle_long_bottom_1);
+        echo("screw_V_angle_long_bottom_2", screw_V_angle_long_bottom_2);
+        echo("screw_V_angle_long_bottom_3", screw_V_angle_long_bottom_3);
+        
+        echo("screw_V_angle_short_bottom_1", screw_V_angle_short_bottom_1 + 3);
+        echo("screw_V_angle_short_bottom_2", screw_V_angle_short_bottom_2 + 3);
+        echo("screw_V_angle_short_bottom_3", screw_V_angle_short_bottom_3 + 3);
+        
+        
+        translate([20, -1, screw_V_angle_long_bottom_1])
+            rotate([-90, 0, 0])
+            cylinder(h = 42, r = 5)
+            ;
+        translate([20, -1, screw_V_angle_long_bottom_2])
+            rotate([-90, 0, 0])
+            cylinder(h = 42, r = 5);
+        translate([20, -1, screw_V_angle_long_bottom_3])
+            rotate([-90, 0, 0])
+            cylinder(h = 42, r = 5);
+        
+        translate([20, 40, screw_V_angle_short_bottom_1 + truss_angled_height_base])
+            rotate([-90, 0, 0])
+            cylinder(h = 42, r = 5)
+            ;
+        translate([20, 40, screw_V_angle_short_bottom_2 + truss_angled_height_base])
+            rotate([-90, 0, 0])
+            cylinder(h = 42, r = 5);
+        translate([20, 40, screw_V_angle_short_bottom_3 + truss_angled_height_base])
+            rotate([-90, 0, 0])
+            cylinder(h = 42, r = 5);
+
             // cut up
         translate([0, 0, length] - [1, 0, 0]) 
             rotate([-(angle), 0, 0]) 
@@ -57,15 +89,29 @@ module truss_base_beam(length)
     difference(){
         rectangular_tube(length, truss_base_bar_side_long, truss_side_small_size);
         // holes for screws
-    
-    
+        
+        echo("base_bar_screw_V_1_hole", screw_V_base_1 + truss_base_external_offset);
+        echo("base_bar_screw_V_2_hole", screw_V_base_2 + truss_base_external_offset);
+        echo("base_bar_screw_V_3_hole", screw_V_base_3 + truss_base_external_offset);
+        
+        translate([20, -1, screw_V_base_1 + truss_base_external_offset])
+            rotate([-90, 0, 0])
+            cylinder(h = 62, r = 5);
+        translate([20, -1, screw_V_base_2 + truss_base_external_offset])
+            rotate([-90, 0, 0])
+            cylinder(h = 62, r = 5);
+        translate([20, -1, screw_V_base_3 + truss_base_external_offset])
+            rotate([-90, 0, 0])
+            cylinder(h = 62, r = 5);
+            
+    /*
         color("red"){ // mark with red; just to see it.
             rectangular_tube(truss_base_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
             translate([0, 0, length - (truss_base_external_offset + 130)])
                 rectangular_tube(truss_base_external_offset + 130, truss_base_bar_side_long, truss_side_small_size);
             
         }
-        
+      */  
 /*
         color("gray")
             difference(){
@@ -166,20 +212,21 @@ module truss(angle)
         cylinder (h = 220, r = 5);
 
 // screws left side
-    translate([20, 160, -80])
+
+    translate([20, screw_V_base_1, -80])
         cylinder(r = 5, h= 250);
-    translate([20, 260, -80])
+    translate([20, screw_V_base_2, -80])
         cylinder(r = 5, h= 310);
-    translate([20, 360, -80])
+    translate([20, screw_V_base_3, -80])
         cylinder(r = 5, h= 400);
         
         
 // screws right side
-    translate([20, 2 * truss_base_half_length - 160, -80])
+    translate([20, 2 * truss_base_half_length - screw_V_base_1, -80])
         cylinder(r = 5, h= 250);
-    translate([20, 2 * truss_base_half_length - 260, -80])
+    translate([20, 2 * truss_base_half_length - screw_V_base_2, -80])
         cylinder(r = 5, h= 310);
-    translate([20, 2 * truss_base_half_length - 360, -80])
+    translate([20, 2 * truss_base_half_length - screw_V_base_3, -80])
         cylinder(r = 5, h= 400);
         
 // top horizontal screws        
@@ -187,6 +234,8 @@ module truss(angle)
 }
 //---------------------------------------------------------------------------------------
 truss(38);
+
+//truss_base_beam(truss_base_bar_length);
 
 // truss_angle_beam_interior(1000, 38);
 // truss_angle_beam(truss_top_chord_length, 38);
