@@ -27,15 +27,37 @@ plate_height = 100;
 plate_length = 4 * plate_distance_to_hole;
 plate_thick = 5;
 
-screw_V_base_1 = 160;
-screw_V_base_2 = 260;
-screw_V_base_3 = 360;
+// bottom
+screw_bottom_dist_1 = 160;
+screw_bottom_dist_2 = 260;
+screw_bottom_dist_3 = 360;
 
-screw_V_angle_long_bottom_1 = screw_V_base_1  / cos(38);
-screw_V_angle_long_bottom_2 = screw_V_base_2 / cos(38);
-screw_V_angle_long_bottom_3 = screw_V_base_3 / cos(38);
+screw_V_bottom_L_1 = 160;
+screw_V_bottom_L_2 = 260;
+screw_V_bottom_L_3 = 360;
 
-screw_V_angle_short_bottom_1 = (screw_V_base_1 - truss_angled_chord_base) / cos(38);
-screw_V_angle_short_bottom_2 = (screw_V_base_2 - truss_angled_chord_base) / cos(38);
-screw_V_angle_short_bottom_3 = (screw_V_base_3 - truss_angled_chord_base) / cos(38);
+screw_V_angle_long_bottom_1 = screw_bottom_dist_1 / cos(38);
+screw_V_angle_long_bottom_2 = screw_bottom_dist_2 / cos(38);
+screw_V_angle_long_bottom_3 = screw_bottom_dist_3 / cos(38);
+
+screw_V_angle_short_bottom_1 = (screw_bottom_dist_1 - truss_angled_chord_base) / cos(38);
+screw_V_angle_short_bottom_2 = (screw_bottom_dist_2 - truss_angled_chord_base) / cos(38);
+screw_V_angle_short_bottom_3 = (screw_bottom_dist_3 - truss_angled_chord_base) / cos(38);
+
+// top
+screw_V_top_dist_1 = 160;
+screw_V_top_dist_2 = 210;
+screw_V_top_dist_3 = 260;
+
+screw_V_top_L_1 = 360;
+screw_V_top_L_2 = 460;
+screw_V_top_L_3 = 570;
+
+screw_V_angle_long_top_1 = screw_V_top_dist_1 / cos(38);
+screw_V_angle_long_top_2 = screw_V_top_dist_2 / cos(38);
+screw_V_angle_long_top_3 = screw_V_top_dist_3 / cos(38);
+
+screw_V_angle_short_top_1 = (screw_V_top_dist_1 - truss_angled_chord_base) / cos(38);
+screw_V_angle_short_top_2 = (screw_V_top_dist_2 - truss_angled_chord_base) / cos(38);
+screw_V_angle_short_top_3 = (screw_V_top_dist_3 - truss_angled_chord_base) / cos(38);
 //---------------------------------------------------------------------------------------
