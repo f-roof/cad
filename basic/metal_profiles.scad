@@ -15,9 +15,11 @@ module rectangular_tube(length, H, W, thick = 3)
 //---------------------------------------------------------------------------------------
 module T_40_4(length)
 {
+color("black")
     translate ([0, -20, 0]){
         difference(){
         // base wall
+        
             cube([length, 40, T_profile_thick]);
             /*
             for (k = [0 : 6]){
