@@ -24,7 +24,7 @@ module stair_step(length, angle)
     }
 }
 //---------------------------------------------------------------------------------------
-module gutter_plants_L_support()
+module gutter_L_support()
 {
     difference(){
         cube([gutter_support_length, gutter_support_size, gutter_support_size]);
@@ -39,7 +39,7 @@ module gutter_plants_L_support()
     }
 }
 //---------------------------------------------------------------------------------------
-module gutter_plants_tube_support(length, angle)
+module gutter_tube_support(length, angle)
 {
     translate([0, -60, 0])
         difference(){
@@ -58,9 +58,9 @@ module gutter_plants_tube_support(length, angle)
         }
 }
 //---------------------------------------------------------------------------------------
-module gutter_plants_tube_support_with_screws()
+module gutter_tube_support_with_screws(angle)
 {
-    gutter_plants_tube_support(gutter_tube_support_length, (90-38));
+    gutter_tube_support(gutter_tube_support_length, (90-angle));
    //  M6 screws
    translate([7, -2 - M6_nut_thick, gutter_tube_support_length / 2])
    rotate([-90, 0, 0])
@@ -70,6 +70,21 @@ module gutter_plants_tube_support_with_screws()
         rotate([0, 0, 30])screw_M6_hexa (100);
 }
 //---------------------------------------------------------------------------------------
-//gutter_plants_L_support();
-//gutter_plants_tube_support(gutter_tube_support_length, (90-38));
-gutter_plants_tube_support_with_screws();
+module gutter_board_support(board_length, board_height, board_thick, 
+    angle, gutter_base, gutter_height)
+{
+    difference(){
+        cube([board_length, board_thick, board_height]);
+        ipotenuza = sqrt(gutter_base * gutter_base + gutter_height * gutter_height);
+        num_gutters = board_length / ipotenuza;
+        for (i=[0:num_gutters - 2])
+            translate([i * ipotenuza, -1, board_height]) 
+                rotate([0, angle, 0]) 
+                    cube([gutter_base, board_thick + 2, gutter_height]);
+    }
+}
+//---------------------------------------------------------------------------------------
+gutter_board_support(1000, 150, 40, 38, 120, 90);
+//gutter_L_support();
+//gutter_tube_support(gutter_tube_support_length, (90-38));
+//gutter_tube_support_with_screws(38);

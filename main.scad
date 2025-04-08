@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-// LAST UPDATE: 2025.03.15.0
+// LAST UPDATE: 2025.04.02.0
 //---------------------------------------------------------------------------------------
 include <params.scad>
 include <house/house_params.scad>
@@ -26,14 +26,19 @@ module roof_solar_panel_side()
 {
     for (i = [0:5])
         translate([distance_between_trusses * i, 0, 0]) 
-        rotate([-90, 0, 0])
-            truss_angle_beam(truss_top_chord_length, angle_roof);
+            rotate([-90, 0, 0])
+                truss_angle_beam(truss_top_chord_length, angle_roof);
             
-     // T profiles
+// T profiles
         for (i = [0 : 3])
             translate([0, 0,  0])
             translate([0, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 0])
-            T_40_4(6000);
+            T_40_4(6000)
+            ;
+            
+// wooden bar
+    translate([0, first_T_at - 40, 5])
+        cube([6000, 40, 30]);
             
         // solar panels
         for (k = [0 : 3])
@@ -42,18 +47,18 @@ module roof_solar_panel_side()
             translate([k * solar_panel_size[0], first_T_at + tolerance_between_panels + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 0])
             solar_panel_Hyundai()
             ;
+            
          // screws
-
         for (k = [0 : 2])
-        for (i = [0 : 3]){
-            //translate([0, 0,  -10])
-            translate([k * distance_between_trusses + truss_side_small_size / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
-            4.1]) mirror([0,0,1]){
-                translate([0, -10, 0])
-                    screw_M8_sunken (100);
-                translate([0, 10, 0])
-                    screw_M8_sunken (100);
-            }
+            for (i = [0 : 3]){
+                //translate([0, 0,  -10])
+                translate([k * distance_between_trusses + truss_side_small_size / 2, first_T_at + (solar_panel_size[1] + T_profile_thick + 2 * tolerance_between_panels) * i, 
+                4.1]) mirror([0,0,1]){
+                    translate([0, -10, 0])
+                        screw_M8_sunken (100);
+                    translate([0, 10, 0])
+                        screw_M8_sunken (100);
+                }
             }        
 }
 //---------------------------------------------------------------------------------------
@@ -105,23 +110,30 @@ module roof()
                 ;
 
        
-// gutters for plants
+// gutters supports
     for (i = [0 : num_gutters_columns_south_side]){ // num columns
-        translate([distance_between_trusses * i, 0, 0]){
-            for (k = [0:num_gutters_rows_south_side - 1]){ // num rows
-                translate([0,
-                    cos(angle_roof) * gutter_lindab_radius * k, 
-                    sin(angle_roof) * gutter_lindab_radius * k]
-                ){
-                //gutter support
-                translate([-10,  0,0])
-                    rotate([-(90-angle_roof), 0, 0]) 
-                        gutter_plants_tube_support_with_screws();
-                }
-            }// end for k
-        }
-    }// end for i
-
+        // left
+        rotate([angle_roof, 0, 0])
+            translate([distance_between_trusses * i + 40 + 40, 0, -80])
+                rotate([0, 0, 90]) 
+                gutter_board_support(board_length = 900, 
+                    board_height = 150, 
+                    board_thick = 40,
+                    angle = angle_roof, 
+                    gutter_base = 120, 
+                    gutter_height = 90);
+                    // right
+        rotate([angle_roof, 0, 0])
+            translate([distance_between_trusses * i, 0, -80])
+                rotate([0, 0, 90]) 
+                gutter_board_support(board_length = 900, 
+                    board_height = 150, 
+                    board_thick = 40,
+                    angle = angle_roof, 
+                    gutter_base = 120, 
+                    gutter_height = 90);
+    }
+// gutters for plants
     for (i = [0 : num_gutters_columns_south_side - 1]){ // num columns
         translate([distance_between_trusses * i, 0, 0]){
             for (k = [0:num_gutters_rows_south_side - 1]){ // num rows
@@ -131,8 +143,8 @@ module roof()
                 ){
                // gutters
                 translate([0,  +first_gutter_at_Y, first_gutter_at_Z])
-                    translate([-20 +truss_side_small_size, -gutter_lindab_bottom_width, 0])
-                        gutter_Lindab(1080)
+                    translate([+20 +truss_side_small_size, -gutter_lindab_bottom_width, 0])
+                        gutter_Lindab(gutter_length)
                     ;
                 }
             }// end for k
