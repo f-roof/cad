@@ -2,39 +2,13 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //------------------------------------------------------------------------------------
-// LAST UPDATE: 2025.03.27.0
+// LAST UPDATE: 2025.04.06.0
 //------------------------------------------------------------------------------------
 include <truss_params.scad>
 use <../../basic/metal_profiles.scad>
+use <../../components/corners.scad>
 //-------------------------------------------------------------
-module corner_60()
-{
-    difference(){
-        cube([40, 60, 60]);
-        translate([3, 3, 3])
-            cube([34, 60, 60]);
-        translate([20, 40, -1])
-            cylinder(h = 5, r = 4);
-        translate([20, -1, 40])
-            rotate([-90, 0, 0])
-                cylinder(h = 5, r = 4);
-    }
-}
-//-------------------------------------------------------------
-module corner_80()
-{
-    difference(){
-        cube([40, 80, 80]);
-        translate([3, 3, 3])
-            cube([34, 80, 80]);
-        translate([20, 40, -1])
-            cylinder(h = 5, r = 4);
-        translate([20, -1, 40])
-            rotate([-90, 0, 0])
-                cylinder(h = 5, r = 4);
-    }
-}
-//-------------------------------------------------------------
+
 module truss_angle_beam(length, angle)
 {
     difference(){
