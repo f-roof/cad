@@ -57,5 +57,10 @@ module screw_M6_hexa(length)
 	screw_hexa(M6_screw_radius, length, M6_nut_radius, M6_nut_thick);
 }
 //------------------------------------------------------------------------------------
+module screw_M8_hexa(length)
+{
+	screw_hexa(M8_screw_radius, length, M8_nut_radius, M8_nut_thick);
+}
+//------------------------------------------------------------------------------------
 
 screw_M6_hexa(100);
