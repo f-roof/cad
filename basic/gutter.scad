@@ -11,7 +11,7 @@ module gutter_Lindab(length)
         color("maroon") 
             cube([length, gutter_lindab_bottom_width, gutter_lindab_back_height]);
 // top cut edge
-        translate ([0, 0, gutter_lindab_back_height -10]+[-1, 0, 0])
+        translate ([0, gutter_lindab_bottom_width - 1, gutter_lindab_back_height -10]+[-1, 0, 0])
             rotate([4.5, 0, 0])
         cube([length + 2, gutter_lindab_bottom_width, 10]);
         // cut interior

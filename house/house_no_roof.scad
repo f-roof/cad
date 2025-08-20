@@ -6,7 +6,8 @@ include <house_params.scad>
 //---------------------------------------------------------------------------------------
 module house()
 {
-    cube([base_length, base_house_width, house_height]);
+    color("green")
+        cube([base_length, base_house_width, house_height]);
 }
 //---------------------------------------------------------------------------------------
 module roof_wood_support_on_house()

@@ -316,11 +316,11 @@ module truss(angle)
         
 }
 //---------------------------------------------------------------------------------------
-//truss(38);
+truss(38);
 
 //truss_angle_beam(truss_top_chord_length, 38);
 
- truss_base_beam(truss_base_bar_length);
+ //truss_base_beam(truss_base_bar_length);
 // truss_angle_beam(truss_top_chord_length, 38);
 
 //truss_interior_horizontal_bar(truss_interior_bar_length, 38);

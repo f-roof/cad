@@ -4,6 +4,15 @@
 //---------------------------------------------------------------------------------------
 include <metal_profiles_params.scad>
 //---------------------------------------------------------------------------------------
+module L_profile(length, W, thick = 3)
+{
+    color("gray") 
+    difference(){
+        cube([W, W, length]);
+        translate ([thick, thick, 0] - [0,0,1]) cube([W - thick + 1, W - thick + 1, length] + [0, 0, 2]);
+    }
+}
+//---------------------------------------------------------------------------------------
 module rectangular_tube(length, H, W, thick = 3)
 {
     color("gray") 
@@ -20,7 +29,7 @@ color("black")
         difference(){
         // base wall
         
-            cube([length, 40, T_profile_thick]);
+            cube([length, 40, T_profile_thick_40]);
             /*
             for (k = [0 : 6]){
                 translate ([k * distance_between_capriori + caprior_side_small / 2, 10, 0]) cylinder(h = T_profile_thick + 2, r = 4);
@@ -29,11 +38,32 @@ color("black")
             */
         }
         // vertical wall
-        translate ([0, 20 - T_profile_thick / 2, 0]) cube([length, T_profile_thick, 40]);
+        translate ([0, 20 - T_profile_thick_40 / 2, 0]) cube([length, T_profile_thick_40, 40]);
+    }
+}
+//---------------------------------------------------------------------------------------
+module T_50_5(length)
+{
+color("black")
+    translate ([0, -20, 0]){
+        difference(){
+        // base wall
+        
+            cube([length, 50, 5]);
+            /*
+            for (k = [0 : 6]){
+                translate ([k * distance_between_capriori + caprior_side_small / 2, 10, 0]) cylinder(h = T_profile_thick + 2, r = 4);
+                translate ([k * distance_between_capriori + caprior_side_small / 2, 30, 0]) cylinder(h = T_profile_thick + 2, r = 4);
+            }
+            */
+        }
+        // vertical wall
+        translate ([0, 20 - T_profile_thick_50 / 2, 0]) cube([length, T_profile_thick_50, 40]);
     }
 }
 //---------------------------------------------------------------------------------------
 
 //T_40_4(1000);
 
-rectangular_tube(100, 80, 40);
+//rectangular_tube(100, 80, 40);
+L_profile(1000, 40, 3);

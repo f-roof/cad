@@ -10,17 +10,27 @@ include <../basic/screws_nuts_washers_params.scad>
 use <../basic/metal_profiles.scad>
 use <../basic/screws_nuts_washers.scad>
 //---------------------------------------------------------------------------------------
-module stair_step(length, angle)
+module stair_step(length)
 {
     difference(){
-        color("black") cube([length, 120, 120]);
-        //translate([-2, 4, 4])
-        //cube([length + 4, 120 - 8, 120 - 8]);
+        color("black") cube([length, 130, 100]);
         
-        translate([-2, -0, 17.5])
-        rotate([angle-90, 0, 0])
-        translate([0, -0, -20])
-        cube([length + 4, 250, 250]);
+        translate([-1, 120, 0])
+            rotate([-9.5, 0, 0])
+                    cube([length + 4, 250, 250]);
+        
+    }
+}
+//---------------------------------------------------------------------------------------
+module gutter_end()
+{
+    difference(){
+        color("black") cube([25, 140, 80]);
+        
+        translate([-1, 120, 0])
+            rotate([-9.5, 0, 0])
+                    cube([25 +2, 250, 250]);
+        
     }
 }
 //---------------------------------------------------------------------------------------
@@ -70,21 +80,35 @@ module gutter_tube_support_with_screws(angle)
         rotate([0, 0, 30])screw_M6_hexa (100);
 }
 //---------------------------------------------------------------------------------------
-module gutter_board_support(board_length, board_height, board_thick, 
-    angle, gutter_base, gutter_height)
+module gutter_board_support(board_length, angle, board_height = 130, board_thick = 30, 
+    gutter_base = 120, gutter_height = 90, offset = 120, num_gutters = 10)
 {
     difference(){
-        cube([board_length, board_thick, board_height]);
+            //translate([-200, 0, 0])
+            cube([board_length, board_thick, board_height]);
+            /*
+        translate([-80, -2, -100])
+        rotate([0, -(90-angle), 0])
+            cube([board_height, board_thick + 4, 2*board_height]);
+          */
+          translate([-165, -1, -0])
+        rotate([0, angle, 0])
+            cube([board_height, board_thick + 2, 2*board_height + 20]);
+            
         ipotenuza = sqrt(gutter_base * gutter_base + gutter_height * gutter_height);
-        num_gutters = board_length / ipotenuza;
-        for (i=[0:num_gutters - 2])
-            translate([i * ipotenuza, -1, board_height]) 
+        //num_gutters = board_length / ipotenuza;
+        for (i=[0:num_gutters - 1])
+            translate([offset + i * ipotenuza, -1, board_height]) 
                 rotate([0, angle, 0]) 
                     cube([gutter_base, board_thick + 2, gutter_height]);
     }
 }
 //---------------------------------------------------------------------------------------
-gutter_board_support(1000, 150, 40, 38, 120, 90);
+gutter_board_support(board_length = 1000, angle = 38, board_height = 130, board_thick = 30, gutter_base = 120, gutter_height = 90, offset = 120, num_gutters = 8);
 //gutter_L_support();
 //gutter_tube_support(gutter_tube_support_length, (90-38));
 //gutter_tube_support_with_screws(38);
+
+//stair_step(120, 10);
+
+//gutter_end();

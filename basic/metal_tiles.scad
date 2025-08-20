@@ -6,7 +6,8 @@ include <metal_tiles_params.scad>
 // -----------------------------------------------------------------------------------
 module roof_tile(length)
 {
-    cube([tile_width, length, 1]);
+    color("maroon")
+        cube([tile_width, length, tile_thick]);
 }
 //------------------------------------------------------------------------------------
 module ridge(length, radius) // rounded at the top
