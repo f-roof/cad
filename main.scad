@@ -2,7 +2,7 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-// LAST UPDATE: 2025.06.19.0
+// LAST UPDATE: 2025.08.24.0
 //---------------------------------------------------------------------------------------
 include <params.scad>
 include <house/house_params.scad>
@@ -50,7 +50,7 @@ module roof_solar_panel_side()
         for (i = [0 : 2])
             translate([0, 0, 0 + T_profile_thick_40 / 2 + tolerance_between_panels])
             translate([k * solar_panel_size[0], second_T_at + tolerance_between_panels + (solar_panel_size[1] + T_profile_thick_40 + 2 * tolerance_between_panels) * i, 0])
-            //solar_panel_Hyundai()
+            solar_panel_Hyundai()
             ;
             
          // screws
@@ -237,7 +237,7 @@ module roof()
                    // gutters
                         translate([-110, -gutter_lindab_bottom_width, 0])
                             mirror([0,1,0])
-                            //gutter_with_ends_and_step_support(1333)
+                            gutter_with_ends_and_step_support(1333)
                         ;
                     }
                 }// end for k
