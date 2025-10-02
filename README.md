@@ -29,9 +29,9 @@ Note that left button drag means rotate, right button drag means move and the wh
 
 [house](house) folder contains house (without roof) design.
 
-[main](main.scad) is the main file of the project.
+[main.scad](main.scad) is the main file of the project.
 
-[params](params.scad) contains some important parameters for the roof. Note that some values must NOT be changed. For instance, the **angle_roof** must be kept to 38 because it is computed so that 2 gutters touch eachother.
+[params.scad](params.scad) contains some important parameters for the roof. Note that some values must NOT be changed. For instance, the **angle_roof** must be kept to 38 because it is computed so that 2 gutters touch eachother.
 
 ## Warning
 
