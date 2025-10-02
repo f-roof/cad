@@ -2,11 +2,11 @@
 // https://github.com/f-roof
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //------------------------------------------------------------------------------------
-// LAST UPDATE: 2025.06.12.0
+// LAST UPDATE: 2025.10.02.0
 //------------------------------------------------------------------------------------
 include <truss_params.scad>
 use <../../basic/metal_profiles.scad>
-use <../../components/corners.scad>
+use <../../basic/corners.scad>
 use <../../basic/screws_nuts_washers.scad>
 //-------------------------------------------------------------
 module truss_angle_beam(length, angle)
