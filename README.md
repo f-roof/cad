@@ -41,7 +41,7 @@ Build it on your own risk!
 
 ## Author
 
-Mihai Oltean
+[Mihai Oltean](https://mihaioltean.github.io)
 
 ## License
 
