@@ -23,9 +23,9 @@ Note that left button drag means rotate, right button drag means move and the wh
 
 ## Project structure
 
-[trusses](trusses) folder contains the design for the trusses. Note that multiple versions have been designed.
+[basic](basic) folder contains basic components (tiles, corners, gutters, screws, solar panels etc) required to design the roof.
 
-[basic](basic) folder contains basic components (not specific to roofs) required to design the roof.
+[trusses](trusses) folder contains the design for the trusses. Note that multiple versions have been designed. Currently [trusses/truss2](trusses/truss2) is used.
 
 [house](house) folder contains house (without roof) design.
 
