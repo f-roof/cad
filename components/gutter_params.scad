@@ -10,4 +10,12 @@ gutter_lindab_bottom_width = 120;
 //gutter_lindab_top_width = 130;
 gutter_lindab_radius = 150;
 gutter_lindab_thick = 0.6;
-//---------------------------------------------------------------------------------------
+
+// custom
+gutter_bottom_width = 120;
+gutter_back_horizontal_width = 80;
+gutter_front_horizontal_width = 30;
+
+total_gutter_length = gutter_lindab_back_height + gutter_lindab_front_height + gutter_bottom_width + gutter_back_horizontal_width + gutter_front_horizontal_width;
+echo(total_gutter_length = total_gutter_length);
+//--------------------------------------------------------------------------------------- 

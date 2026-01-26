@@ -10,12 +10,12 @@ include <trusses/truss2/truss_params.scad>
 
 include <basic/solar_panels_params.scad>
 include <basic/metal_profiles_params.scad>
-include <basic/gutter_params.scad>
+include <components/gutter_params.scad>
 //---------------------------------------------------------------------------------------
 use <trusses/truss2/truss.scad>
 use <house/house_no_roof.scad>
 
-use <basic/gutter.scad>
+use <components/gutter.scad>
 use <basic/solar_panels.scad>
 use <basic/metal_profiles.scad>
 use <basic/screws_nuts_washers.scad>

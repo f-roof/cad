@@ -3,7 +3,7 @@
 // Author: Mihai Oltean; https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
 include <basic/metal_tiles_params.scad>
-include <basic/gutter_params.scad>
+include <components/gutter_params.scad>
 include <trusses/truss2/truss_params.scad>
 
 //---------------------------------------------------------------------------------------
