@@ -69,16 +69,9 @@ module roof_solar_panel_side()
             }        
 }
 //---------------------------------------------------------------------------------------
-module roof_tiles_side()
+module roof_garden_side()
 {
-/*
-    for (i = [1 : 5]){
-        translate([i * distance_between_metal_tiles, 31, 30])
-            //rotate([90, 0, 0])
-                roof_tile(4300)
-                ;
-    }
-    */
+
     // wood bars to put the metal roof tiles on it
     for (i = [0 : 10]){
         translate([0, i * distance_between_roof_metal_tiles_support + start_point_metal_tile, 0])
@@ -154,7 +147,7 @@ module roof()
 
         translate([0, truss_base_half_length, 2742])
             rotate([-angle_roof, 0, 0]) 
-                roof_tiles_side()
+                roof_garden_side()
                 ;
 
     // top ridge
