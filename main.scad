@@ -70,17 +70,7 @@ module roof_solar_panel_side()
 }
 //---------------------------------------------------------------------------------------
 module roof_garden_side()
-{
-
-    // wood bars to put the metal roof tiles on it
-    for (i = [0 : 10]){
-        translate([0, i * distance_between_roof_metal_tiles_support + start_point_metal_tile, 0])
-            color("yellow") 
-            //cube([6000, 40, 30])
-            ;
-    }
-    
-    
+{   
     // T profiles
 // first, base T
     translate([0, first_T_at, 00])
@@ -93,6 +83,7 @@ module roof_garden_side()
     last_T_at = second_T_at + (solar_panel_size[1] + T_profile_thick_40 + 2 * tolerance_between_panels) * 3;
     translate([0, last_T_at, 00])
         T_40_4(6000);
+        
     translate([0, last_T_at, -80])
         mirror([0,0,1]) 
         //T_40_4(6000)
@@ -103,6 +94,7 @@ module gutter_with_holes(length)
 {
     difference(){
         gutter_custom(length);
+        
         translate([(length - (distance_between_trusses - 40)) / 2 + 15, 20, -1])
             cylinder (r = 2, h= 2);
         translate([length - (length - (distance_between_trusses - 40)) / 2 - 15, 20, -1])
@@ -113,11 +105,11 @@ module gutter_with_holes(length)
             cylinder (r = 2, h= 2);
     }
 }
-
 //---------------------------------------------------------------------------------------
 module gutter_with_ends_and_step_support(length)
 {
     gutter_with_holes(length);
+    
     translate ([0, 1, 1]) 
         gutter_end();
     translate ([length - 25, 1, 1]) 
