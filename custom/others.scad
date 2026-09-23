@@ -1,6 +1,8 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://mihaioltean.github.io
+
+// Maker: Mihai Oltean
+// https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
 include <../params.scad>
 include <../basic/tolerances.scad>
@@ -9,18 +11,6 @@ include <../basic/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
 use <../basic/metal_profiles.scad>
 use <../basic/screws_nuts_washers.scad>
-//---------------------------------------------------------------------------------------
-module stair_step(length)
-{
-    difference(){
-        color("black") cube([length, 130, 100]);
-        
-        translate([-1, 120, 0])
-            rotate([-9.5, 0, 0])
-                    cube([length + 4, 250, 250]);
-        
-    }
-}
 //---------------------------------------------------------------------------------------
 module gutter_end()
 {

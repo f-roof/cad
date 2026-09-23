@@ -1,8 +1,10 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://mihaioltean.github.io
+
+// Maker: Mihai Oltean
+// https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-// LAST UPDATE: 2025.08.24.0
+// LAST UPDATE: 2026.09.23.0
 //---------------------------------------------------------------------------------------
 include <params.scad>
 include <house/house_params.scad>
@@ -10,17 +12,17 @@ include <trusses/truss2/truss_params.scad>
 
 include <basic/solar_panels_params.scad>
 include <basic/metal_profiles_params.scad>
-include <components/gutter_params.scad>
+include <custom/gutter_params.scad>
 //---------------------------------------------------------------------------------------
 use <trusses/truss2/truss.scad>
 use <house/house_no_roof.scad>
 
-use <components/gutter.scad>
+use <custom/gutter.scad>
 use <basic/solar_panels.scad>
 use <basic/metal_profiles.scad>
 use <basic/screws_nuts_washers.scad>
 use <basic/metal_tiles.scad>
-use <components/others.scad>
+use <custom/others.scad>
 //---------------------------------------------------------------------------------------
 module roof_solar_panel_side()
 {
@@ -69,12 +71,14 @@ module roof_solar_panel_side()
 //---------------------------------------------------------------------------------------
 module roof_tiles_side()
 {
+/*
     for (i = [1 : 5]){
         translate([i * distance_between_metal_tiles, 31, 30])
             //rotate([90, 0, 0])
                 roof_tile(4300)
                 ;
     }
+    */
     // wood bars to put the metal roof tiles on it
     for (i = [0 : 10]){
         translate([0, i * distance_between_roof_metal_tiles_support + start_point_metal_tile, 0])
@@ -102,10 +106,11 @@ module roof_tiles_side()
         ;        
 }
 //---------------------------------------------------------------------------------------
+
 module gutter_Lindab_with_holes(length)
 {
     difference(){
-        gutter_Lindab(length);
+        gutter_custom(length);
         translate([(length - (distance_between_trusses - 40)) / 2 + 15, 20, -1])
             cylinder (r = 2, h= 2);
         translate([length - (length - (distance_between_trusses - 40)) / 2 - 15, 20, -1])
@@ -116,6 +121,7 @@ module gutter_Lindab_with_holes(length)
             cylinder (r = 2, h= 2);
     }
 }
+
 //---------------------------------------------------------------------------------------
 module gutter_with_ends_and_step_support(length)
 {
@@ -125,11 +131,11 @@ module gutter_with_ends_and_step_support(length)
     translate ([length - 25, 1, 1]) 
         gutter_end();
         
-    translate ([(length - (distance_between_trusses - 40)) / 2 + 15 - stair_step_length / 2, 1, 1]) 
-        stair_step(stair_step_length)
+    translate ([(length - (distance_between_trusses - 40)) / 2 + 15 / 2, 50, 1]) 
+        color("maroon")cylinder( h = 80, r = 50)
         ;
-    translate ([length - (length - (distance_between_trusses - 40)) / 2 -15 - stair_step_length / 2, 1, 1]) 
-        stair_step(stair_step_length)
+    translate ([length - (length - (distance_between_trusses - 40)) / 2 -15 / 2, 50, 1]) 
+        color("maroon")cylinder( h = 80, r = 50)
         ;
 }
 //---------------------------------------------------------------------------------------
