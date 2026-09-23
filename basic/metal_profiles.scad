@@ -1,6 +1,8 @@
 // F-Roof: A multi-function single-layer roof
 // https://github.com/f-roof
-// Author: Mihai Oltean; https://tcreate.org
+
+// Maker: Mihai Oltean
+// https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
 include <metal_profiles_params.scad>
 //---------------------------------------------------------------------------------------
@@ -39,26 +41,6 @@ color("black")
         }
         // vertical wall
         translate ([0, 20 - T_profile_thick_40 / 2, 0]) cube([length, T_profile_thick_40, 40]);
-    }
-}
-//---------------------------------------------------------------------------------------
-module T_50_5(length)
-{
-color("black")
-    translate ([0, -20, 0]){
-        difference(){
-        // base wall
-        
-            cube([length, 50, 5]);
-            /*
-            for (k = [0 : 6]){
-                translate ([k * distance_between_capriori + caprior_side_small / 2, 10, 0]) cylinder(h = T_profile_thick + 2, r = 4);
-                translate ([k * distance_between_capriori + caprior_side_small / 2, 30, 0]) cylinder(h = T_profile_thick + 2, r = 4);
-            }
-            */
-        }
-        // vertical wall
-        translate ([0, 20 - T_profile_thick_50 / 2, 0]) cube([length, T_profile_thick_50, 40]);
     }
 }
 //---------------------------------------------------------------------------------------
