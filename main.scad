@@ -99,8 +99,7 @@ module roof_garden_side()
         ;        
 }
 //---------------------------------------------------------------------------------------
-
-module gutter_Lindab_with_holes(length)
+module gutter_with_holes(length)
 {
     difference(){
         gutter_custom(length);
@@ -118,7 +117,7 @@ module gutter_Lindab_with_holes(length)
 //---------------------------------------------------------------------------------------
 module gutter_with_ends_and_step_support(length)
 {
-    gutter_Lindab_with_holes(length);
+    gutter_with_holes(length);
     translate ([0, 1, 1]) 
         gutter_end();
     translate ([length - 25, 1, 1]) 
