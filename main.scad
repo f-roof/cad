@@ -148,84 +148,61 @@ module roof()
            ridge(base_length, ridge_radius)
            ;
             
-// back side
-    translate([0, 2*truss_base_half_length, 0])
-    mirror([0, 1, 0])
-    {
-       translate([30, -0, 0])
-            rotate([angle_roof, 0, 0])
-                    rotate([0, 0, 90]) 
-                        gutter_board_support(board_length = 4300, 
-                        angle = angle_roof, 
-                        board_height = 130, 
-                        board_thick = 30,
-                        gutter_base = 120, 
-                        gutter_height = 90, offset = 120,
-                        num_gutters = num_gutters_rows_north_side);
-                // right
-        translate([distance_between_trusses + 30, 0, 0])
-            rotate([angle_roof, 0, 0])
-                rotate([0, 0, 90]) 
-                    gutter_board_support(board_length = 4300, 
-                        angle = angle_roof, 
-                        board_height = 130, 
-                        board_thick = 30,
-                        gutter_base = 120, 
-                        gutter_height = 90, offset = 120,
-                        num_gutters = num_gutters_rows_north_side);
+// pots (gutters) for plants
+    for (i=[0:5])
+        translate([i * distance_between_trusses, 0, 0]){
+// gutter support
+            translate([0, 2*truss_base_half_length, 0])
+            mirror([0, 1, 0])
+            {
+               translate([30, -0, 0])
+                    rotate([angle_roof, 0, 0])
+                            rotate([0, 0, 90]) 
+                                gutter_board_support(board_length = 4300, 
+                                angle = angle_roof, 
+                                board_height = 130, 
+                                board_thick = 30,
+                                gutter_base = 120, 
+                                gutter_height = 90, offset = 120,
+                                num_gutters = num_gutters_rows_north_side);
 
-        for (k = [0:num_gutters_rows_north_side - 1]){ // num rows
-                    translate([0,
-                        first_gutter_at_Y + cos(angle_roof) * gutter_lindab_radius * k, 
-                        first_gutter_at_Z + sin(angle_roof) * gutter_lindab_radius * k]
-                    ){
-                   // gutters
-                        translate([-110, -gutter_lindab_bottom_width, 0])
-                            mirror([0,1,0])
-                            gutter_with_ends_and_step_support(1333)
-                        ;
-                    }
-                }// end for k
-    }
-//
-//T5    vertical 1 at the top
-    translate([-0 , truss_base_half_length, -60 - 300])
-        rotate([0, -90, 0]) 
-            T_50_5(3200 + 800 + 100);
+// gutters
+                for (k = [0:num_gutters_rows_north_side - 1]){ // num rows
+                            translate([0,
+                                first_gutter_at_Y + cos(angle_roof) * gutter_lindab_radius * k, 
+                                first_gutter_at_Z + sin(angle_roof) * gutter_lindab_radius * k]
+                            ){
+                                translate([-110, -gutter_lindab_bottom_width, 0])
+                                    mirror([0,1,0])
+                                    gutter_with_ends_and_step_support(1333)
+                                ;
+                            }
+                        }// end for k
+            }
+    }// end for i
     
-    // vertical 2 at the middle
-    translate([0, truss_dist_to_vertical_bar + truss_base_half_length - 320, -60 - 300])
-        rotate([0, -90, 0]) 
-            T_50_5(truss_vertical_bar_length + 60+300 +230 + 800 + 100);//1380+60+300 + 230 + 800 = 2500
-
-            // vertical 3, at the bottom
-    translate([0, 2 * truss_base_half_length + 200, -2000 - 60])
-        rotate([0, -90, 0]) 
-            T_50_5(2000 + 800 + 100);
-    
-    
-// balustrada
-    translate([0, 2 * truss_base_half_length + 200, 800])
-        rotate([90- angle_roof, 0, 0])
-            L_profile(4700, 40, 3);
-//T5    vertical 2
-/*
-translate([distance_between_trusses + 40, 0, 0]){
-    mirror([1,0,0]){
-        translate([0, truss_base_half_length, 0])
-        rotate([0, -90, 0]) 
-        T_50_5(3700);
+// railing, so that humans can climb it
+    for (i=[0:5])
+        translate([i * 1333, 0, 0]){
+    //vertical support 1 at the top
+        translate([-130, truss_base_half_length, -60 - 300])
+                rectangular_tube(length = 3200 + 800 + 100, H= 50, W = 30, 3);
         
-        translate([0, 2 * truss_base_half_length, -2000])
-        rotate([0, -90, 0]) 
-        T_50_5(3000);
-    // balustrada
-        translate([0, 2 * truss_base_half_length, 1000])
+      // vertical support 2 at the middle
+        translate([-130, truss_dist_to_vertical_bar + truss_base_half_length - 320, -60 - 300])
+                rectangular_tube(truss_vertical_bar_length + 60+300 +230 + 800 + 100, H= 50, W = 30, 3);//1380+60+300 + 230 + 800 = 2500
+
+    // vertical support 3, at the bottom
+        translate([-130, 2 * truss_base_half_length + 200, -2000 - 60])
+                rectangular_tube(2000 + 800 + 100, H= 50, W = 30, 3);
+        
+        
+    // railing
+        translate([-130, 2 * truss_base_half_length + 400, 740])
             rotate([90- angle_roof, 0, 0])
-        L_profile(4500, 40, 3);
-        }
+            rotate([0, 0, -90])
+                L_profile(5000, 40, 3);
     }
-*/
 }
 //---------------------------------------------------------------------------------------
 module house_with_roof()
@@ -234,7 +211,7 @@ module house_with_roof()
     translate([0, 0, -house_height-2 * base_beam_side]) 
         house();
 
-    // wood frame on the top of the  house
+    // wood frame on the top of the  house; this is not necesarly
     color("maroon") 
         translate([0, 0, -2 * base_beam_side]) 
             roof_wood_support_on_house();
