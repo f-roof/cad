@@ -125,73 +125,28 @@ module gutter_with_ends_and_step_support(length)
 //---------------------------------------------------------------------------------------
 module roof()
 {  
-    // trusses
+// trusses
     for (i = [0 : 6]){
         translate([distance_between_trusses * i, 0, 0])
             truss(angle_roof);
     }// end for i
-
+    
+// solar panels side
     translate([0, 0, 0])
             rotate([angle_roof, 0, 0]) 
                 roof_solar_panel_side()
                 ;
-
+// garden side
         translate([0, truss_base_half_length, 2742])
             rotate([-angle_roof, 0, 0]) 
                 roof_garden_side()
                 ;
 
-    // top ridge
+// top ridge
     translate ([0, truss_base_half_length, 2700])
        rotate([0, 90, 0])
            ridge(base_length, ridge_radius)
            ;
-
-// solar side
-       /*
-// gutters supports
-    for (i = [0 : num_gutters_columns_south_side]){ // num columns
-        // left
-        rotate([angle_roof, 0, 0])
-            translate([distance_between_trusses * i + 40 + 40, 0, -80])
-                rotate([0, 0, 90]) 
-                gutter_board_support(board_length = 4000, 
-                    angle = angle_roof, 
-                    board_height = 150, 
-                    board_thick = 30,
-                    gutter_base = 120, 
-                    gutter_height = 90);
-                    // right
-        rotate([angle_roof, 0, 0])
-            translate([distance_between_trusses * i, 0, -80])
-                rotate([0, 0, 90]) 
-                gutter_board_support(board_length = 4000, 
-                    angle = angle_roof, 
-                    board_height = 200, 
-                    board_thick = 30,
-                    gutter_base = 120, 
-                    gutter_height = 90);
-    }
-*/
-// gutters for plants
-/*
-    for (i = [0 : num_gutters_columns_south_side - 1]){ // num columns
-        translate([distance_between_trusses * i, 0, 0]){
-            for (k = [0:num_gutters_rows_south_side - 1]){ // num rows
-                translate([0,
-                    cos(angle_roof) * gutter_lindab_radius * k, 
-                    sin(angle_roof) * gutter_lindab_radius * k]
-                ){
-               // gutters
-                translate([0,  +first_gutter_at_Y, first_gutter_at_Z])
-                    translate([+20 +truss_side_small_size, -gutter_lindab_bottom_width, 0])
-                        gutter_with_ends_and_step_support(gutter_length)
-                    ;
-                }
-            }// end for k
-        }
-    }// end for i
-*/
             
 // back side
     translate([0, 2*truss_base_half_length, 0])
