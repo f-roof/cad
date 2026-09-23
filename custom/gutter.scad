@@ -24,4 +24,19 @@ module gutter_custom(length)
         cube([length, gutter_front_horizontal_width, 1]);
 }
 //---------------------------------------------------------------------------------------
+module gutter_end()
+{
+    difference(){
+        color("black") cube([25, 140, 80]);
+        
+        translate([-1, 120, 0])
+            rotate([-9.5, 0, 0])
+                    cube([25 +2, 250, 250]);
+        
+    }
+}
+//---------------------------------------------------------------------------------------
+
 gutter_custom(1250);
+
+//gutter_end();
