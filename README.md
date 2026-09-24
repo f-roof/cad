@@ -1,5 +1,5 @@
 # F-Roof CAD files
-A multi-function single-layer roof
+A multi-function, single-layer roof
 
 ![f-roof-cad](images/f_roof_cad.png)
 
@@ -25,6 +25,8 @@ Note that left button drag means rotate, right button drag means move and the wh
 
 [basic](basic) folder contains basic components (tiles, corners, gutters, screws, solar panels etc) required to design the roof.
 
+[custom](custom) folder contains basic components (gutters) required to design the roof.
+
 [trusses](trusses) folder contains the design for the trusses. Note that multiple versions have been designed. Currently [trusses/truss2](trusses/truss2) is used.
 
 [house](house) folder contains house (without roof) design.
@@ -39,7 +41,7 @@ This is work in progress.
 Not all components are shown in the project.
 Build it on your own risk!
 
-## Author
+## Maker
 
 [Mihai Oltean](https://mihaioltean.github.io)
 
