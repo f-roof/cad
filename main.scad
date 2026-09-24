@@ -4,7 +4,7 @@
 // Maker: Mihai Oltean
 // https://mihaioltean.github.io
 //---------------------------------------------------------------------------------------
-// LAST UPDATE: 2026.09.23.0
+// LAST UPDATE: 2026.09.24.0
 //---------------------------------------------------------------------------------------
 include <params.scad>
 include <house/house_params.scad>
@@ -169,10 +169,10 @@ module roof()
 // gutters
                 for (k = [0:num_gutters_rows_north_side - 1]){ // num rows
                             translate([0,
-                                first_gutter_at_Y + cos(angle_roof) * gutter_lindab_radius * k, 
-                                first_gutter_at_Z + sin(angle_roof) * gutter_lindab_radius * k]
+                                first_gutter_at_Y + cos(angle_roof) * gutter_radius * k, 
+                                first_gutter_at_Z + sin(angle_roof) * gutter_radius * k]
                             ){
-                                translate([-110, -gutter_lindab_bottom_width, 0])
+                                translate([-110, -gutter_bottom_width, 0])
                                     mirror([0,1,0])
                                     gutter_with_ends_and_step_support(1333)
                                 ;
@@ -233,14 +233,12 @@ module house_with_roof()
         roof();
 }
 //---------------------------------------------------------------------------------------
- house_with_roof();
+house_with_roof();
 
 //roof();
 
- //roof_solar_panel_side();
+//roof_solar_panel_side();
 
-//roof_tiles_side();
+//roof_garden_side();
 
 //gutter_with_ends_and_step_support(1333);
-
-//gutter_Lindab_with_holes(1333);
